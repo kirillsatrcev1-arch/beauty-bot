@@ -43,7 +43,7 @@ async def test_full_booking_flow(env):
     svc_cb = first(env.buttons(), "book:svc:")
     await env.click(CLIENT, svc_cb)
     assert "Выбери дату" in s.text_of(s.last_screen())
-    day_cb = first(env.buttons(), "book:day:")
+    day_cb = [x for x in env.buttons() if x.startswith("book:day:")][2]  # не сегодня: перенос возможен не позже чем за N часов
     await env.click(CLIENT, day_cb)
     time_cb = first(env.buttons(), "book:time:")
     await env.click(CLIENT, time_cb)

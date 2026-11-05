@@ -58,7 +58,7 @@ async def test_book_via_webapp(client, env):
         ym = f"{y}-{m:02d}"
         days = (await (await client.get(f"/api/month?service={sid}&ym={ym}", headers=hdr(CLIENT))).json())["days"]
         free = [d for d, st in days.items() if st == "free"]
-    date = f"{ym}-{int(free[0]):02d}"
+    date = f"{ym}-{int(free[min(2, len(free) - 1)]):02d}"  # не сегодня — иначе отмена «слишком поздно»
     slots = (await (await client.get(f"/api/slots?service={sid}&date={date}", headers=hdr(CLIENT))).json())["slots"]
     body = {"service": sid, "date": date, "time": slots[0], "name": "Маша", "phone": "8 (900) 111-22-33"}
 
