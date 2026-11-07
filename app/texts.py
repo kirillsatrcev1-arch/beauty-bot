@@ -89,8 +89,10 @@ def service_card(s: dict, fav: bool = False) -> str:
 
 
 def booking_details(b: dict, address: str) -> str:
+    master = f"👩‍🎨 <b>Мастер:</b> {h(b['master_name'])}\n" if b.get("master_name") else ""
     return (
         f"🎀 <b>Услуга:</b> {h(b['service_title'])}\n"
+        f"{master}"
         f"📅 <b>Дата:</b> {human_date(b['date'])}\n"
         f"⏰ <b>Время:</b> {b_time(b)}\n"
         f"💗 <b>Стоимость:</b> {rub(b['price'], b.get('price_from'))}\n"
@@ -117,6 +119,7 @@ def booking_admin(b: dict, user: dict | None = None) -> str:
         f"<b>Запись №{b['id']}</b> · {STATUS.get(b['status'], b['status'])}",
         "",
         f"🎀 {h(b['service_title'])} · {rub(b['price'], b.get('price_from'))} · {dur(b['duration'])}",
+        *([f"👩‍🎨 {h(b['master_name'])}"] if b.get("master_name") else []),
         f"📅 {human_date(b['date'])}, {b_time(b)}–{b['end'][11:16]}",
         f"👤 {h(b['name'])}{uname}",
         f"📱 {h(b['phone'])}",

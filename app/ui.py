@@ -9,6 +9,7 @@ from aiogram.exceptions import TelegramBadRequest, TelegramForbiddenError
 from aiogram.types import CallbackQuery, FSInputFile, InlineKeyboardMarkup, InputMediaPhoto, Message
 
 from .db import DB
+from .media import is_upload, upload_path
 
 log = logging.getLogger(__name__)
 COVERS_DIR = Path("data/covers")
@@ -23,6 +24,11 @@ def set_covers_dir(path: Path) -> None:
 async def resolve_photo(db: DB, photo: str) -> tuple[object, str | None]:
     """'cover:key' -> фото мастера из настроек / закэшированный file_id / файл обложки.
     Иначе photo — это file_id из Telegram."""
+    if is_upload(photo):
+        path = upload_path(photo)
+        if path and path.exists():
+            return FSInputFile(path), None
+        photo = "cover:welcome"
     if not photo.startswith("cover:"):
         return photo, None
     key = photo[6:]
@@ -114,6 +120,8 @@ async def show(
 
 async def send_safe(bot: Bot, db: DB, chat_id: int, text: str, markup=None, photo: str | None = None) -> Message | None:
     """Уведомление пользователю: не падаем, если он заблокировал бота."""
+    if not chat_id:  # запись создана мастером вручную, без Telegram-аккаунта клиентки
+        return None
     try:
         if photo:
             return await _send_photo(bot, db, chat_id, photo, text, markup)

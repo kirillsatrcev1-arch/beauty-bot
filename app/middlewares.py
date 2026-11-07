@@ -7,6 +7,7 @@ from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, User
 
 from .db import DB
+from .logic import notify_new_client
 
 
 class UserMiddleware(BaseMiddleware):
@@ -15,5 +16,8 @@ class UserMiddleware(BaseMiddleware):
         user: User | None = data.get("event_from_user")
         db: DB = data["db"]
         if user and not user.is_bot:
-            data["user_row"] = await db.touch_user(user.id, user.username, user.first_name)
+            row = await db.touch_user(user.id, user.username, user.first_name)
+            data["user_row"] = row
+            if row.get("_new"):
+                await notify_new_client(data["bot"], db, data["cfg"], row)
         return await handler(event, data)

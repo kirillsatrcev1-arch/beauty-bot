@@ -30,13 +30,16 @@ async def _user(db: DB, uid: int) -> dict | None:
 async def book(
     bot: Bot, db: DB, cfg: Config, *, user_id: int, service: dict, start: datetime,
     name: str, phone: str, comment: str | None, source: str = "chat", notify_client: bool = False,
+    master_id: int | None = None, status: str | None = None, force: bool = False,
 ) -> dict:
-    status = "confirmed" if db.flag("auto_confirm") else "pending"
+    status = status or ("confirmed" if db.flag("auto_confirm") else "pending")
     b = await create_booking(
         db, user_id=user_id, service=service, start=start, name=name, phone=phone,
-        comment=comment, now=local_now(cfg.tz), source=source, status=status,
+        comment=comment, now=local_now(cfg.tz), source=source, status=status, master_id=master_id,
+        ignore_lead=force, force=force,
     )
-    await db.save_contacts(user_id, name, phone)
+    if user_id:
+        await db.save_contacts(user_id, name, phone)
     await db.log(user_id, "booking_created", id=b["id"], start=b["start"], service=b["service_title"], source=source)
     title = "🆕 <b>Новая запись</b>" if status == "confirmed" else "🆕 <b>Новая заявка на запись</b>"
     await notify_admins(bot, db, cfg, f"{title}\n\n{booking_admin(b, await _user(db, user_id))}", K.admin_booking_kb(b))
@@ -85,13 +88,14 @@ async def cancel(bot: Bot, db: DB, cfg: Config, bid: int, by: str, actor_id: int
     return b
 
 
-async def reschedule(bot: Bot, db: DB, cfg: Config, bid: int, start: datetime, by: str, actor_id: int | None = None) -> dict:
+async def reschedule(bot: Bot, db: DB, cfg: Config, bid: int, start: datetime, by: str, actor_id: int | None = None,
+                     master_id: int | None = None) -> dict:
     old = await db.booking(bid)
     if by == "admin":
         status = "confirmed"
     else:
         status = "confirmed" if db.flag("auto_confirm") else "pending"
-    b = await move_booking(db, bid, start, local_now(cfg.tz), status=status, ignore_lead=(by == "admin"))
+    b = await move_booking(db, bid, start, local_now(cfg.tz), status=status, ignore_lead=(by == "admin"), master_id=master_id)
     await db.log(actor_id, "booking_rescheduled", id=bid, old=old["start"], new=b["start"], by=by)
     was = f"<s>{human_date(old['date'], False)}, {b_time(old)}</s>"
     if by == "client":
@@ -122,3 +126,11 @@ async def client_will_come(bot: Bot, db: DB, cfg: Config, bid: int, user_id: int
     await db.log(user_id, "client_confirmed", id=bid)
     await notify_admins(bot, db, cfg, f"💗 <b>Клиентка подтвердила визит</b>\n\n{booking_admin(await db.booking(bid))}")
     return b
+
+
+async def notify_new_client(bot: Bot, db: DB, cfg: Config, user: dict) -> None:
+    """Мастеру — о новой клиентке (первое появление в боте или приложении)."""
+    if not db.flag("notify_new_clients") or cfg.is_admin(user["id"]):
+        return
+    uname = f" (@{h(user['username'])})" if user.get("username") else ""
+    await notify_admins(bot, db, cfg, f"✨ <b>Новая клиентка</b>\n{h(user.get('first_name'))}{uname}")

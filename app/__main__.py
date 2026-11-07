@@ -18,6 +18,7 @@ from .fsm_storage import SQLiteStorage
 from .handlers import setup_routers
 from .middlewares import UserMiddleware
 from .notifications import scheduler_loop
+from .media import set_upload_dir
 from .ui import set_covers_dir
 from .web.server import create_app
 
@@ -32,6 +33,7 @@ async def main() -> None:
     covers_dir = cfg.data_dir / "covers"
     ensure_covers(covers_dir)
     set_covers_dir(covers_dir)
+    set_upload_dir(cfg.data_dir / "uploads")
 
     bot = Bot(cfg.bot_token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=SQLiteStorage(db), db=db, cfg=cfg)
@@ -44,7 +46,8 @@ async def main() -> None:
     for aid in cfg.admin_ids:
         try:
             await bot.set_my_commands([BotCommand(command="start", description="🎀 Главное меню"),
-                                       BotCommand(command="admin", description="👑 Админ-панель")],
+                                       BotCommand(command="admin", description="👑 Админ-панель"),
+                                       BotCommand(command="panel", description="🖥 Веб-админка")],
                                       scope=BotCommandScopeChat(chat_id=aid))
         except Exception as e:  # noqa: BLE001 — админ ещё не писал боту
             log.warning("admin %s commands: %s", aid, e)

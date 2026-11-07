@@ -41,3 +41,29 @@ def sign_init_data(user: dict, bot_token: str, auth_date: int | None = None) -> 
     secret = hmac.new(b"WebAppData", bot_token.encode(), hashlib.sha256).digest()
     pairs["hash"] = hmac.new(secret, check.encode(), hashlib.sha256).hexdigest()
     return urlencode(pairs)
+
+
+# ---------- сессии веб-админки (вход по одноразовой ссылке из бота) ----------
+def _sig(secret: str, payload: str) -> str:
+    key = hashlib.sha256(("admin-session:" + secret).encode()).digest()
+    return hmac.new(key, payload.encode(), hashlib.sha256).hexdigest()[:40]
+
+
+def sign_admin_token(user_id: int, bot_token: str, ttl: int, kind: str = "s") -> str:
+    payload = f"{kind}.{user_id}.{int(time.time()) + ttl}"
+    return f"{payload}.{_sig(bot_token, payload)}"
+
+
+def verify_admin_token(token: str, bot_token: str, kind: str = "s") -> int | None:
+    try:
+        k, uid, exp, sig = token.split(".")
+    except ValueError:
+        return None
+    payload = f"{k}.{uid}.{exp}"
+    if k != kind or not hmac.compare_digest(sig, _sig(bot_token, payload)) or int(exp) < time.time():
+        return None
+    return int(uid)
+
+
+def ics_sig(booking_id: int, bot_token: str) -> str:
+    return _sig(bot_token, f"ics:{booking_id}")[:16]

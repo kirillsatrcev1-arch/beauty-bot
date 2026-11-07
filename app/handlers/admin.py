@@ -84,6 +84,22 @@ async def admin_home(event, db: DB, cfg: Config, state: FSMContext | None = None
     await show(event, db, text, markup)
 
 
+@router.message(Command("panel"))
+async def cmd_panel(message: Message, db: DB, cfg: Config):
+    """Веб-админка: в Telegram — как Mini App, в браузере — по одноразовой ссылке (действует 10 минут)."""
+    if not cfg.webapp_url:
+        await message.answer("Веб-админка заработает, когда в .env будет указан WEBAPP_URL (HTTPS-адрес приложения).")
+        return
+    from ..web.auth import sign_admin_token
+    from aiogram.types import WebAppInfo
+    token = sign_admin_token(message.from_user.id, cfg.bot_token, ttl=600, kind="l")
+    await message.answer(
+        "🖥 <b>Админ-панель</b>\n\nОткрой прямо в Telegram или по ссылке в браузере на компьютере. "
+        "Ссылка одноразовая по времени — действует 10 минут, никому её не пересылай.",
+        reply_markup=K.kb([B(text="📱 Открыть в Telegram", web_app=WebAppInfo(url=f"{cfg.webapp_url}/admin"))],
+                          [B(text="💻 Открыть в браузере", url=f"{cfg.webapp_url}/admin?token={token}")]))
+
+
 @router.message(Command("admin"))
 async def cmd_admin(message: Message, db: DB, cfg: Config, state: FSMContext):
     await admin_home(message, db, cfg, state)

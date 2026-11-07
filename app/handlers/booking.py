@@ -13,7 +13,7 @@ from .. import keyboards as K
 from .. import logic
 from ..config import Config
 from ..db import DB
-from ..scheduling import SlotTaken, fmt_hm, free_slots, local_now, month_map, nearest_free
+from ..scheduling import SlotTaken, fmt_hm, free_slots, local_now, masters_for_service, month_map, nearest_free
 from ..subscription import is_subscribed
 from ..texts import (
     ASK_COMMENT, ASK_NAME, ASK_PHONE, BAD_PHONE, BOOK_CATEGORY, CAL_LEGEND, SLOT_TAKEN,
@@ -106,6 +106,7 @@ async def _select_service(event, db: DB, cfg: Config, state: FSMContext, s: dict
         svc=s["id"] if s else None, dur=s["duration"], title=s["title"], price=s["price"], pfrom=s["price_from"],
         resched=resched["id"] if resched else None,
         group=(cat or {}).get("book_group", "mani"),
+        masters=await masters_for_service(db, s.get("id")),
     )
     await show_calendar(event, db, cfg, state)
 
@@ -134,15 +135,15 @@ async def show_calendar(event, db: DB, cfg: Config, state: FSMContext, ym: str |
         y, m = map(int, ym.split("-"))
     else:
         y, m = now.year, now.month
-    days = await month_map(db, y, m, data["dur"], now, exclude_id=exclude)
+    days = await month_map(db, y, m, data["dur"], now, exclude_id=exclude, masters=data.get("masters"))
     if not ym and "free" not in days.values() and (horizon_end.year, horizon_end.month) > (y, m):
         y, m = (y + (m == 12), m % 12 + 1)
-        days = await month_map(db, y, m, data["dur"], now, exclude_id=exclude)
+        days = await month_map(db, y, m, data["dur"], now, exclude_id=exclude, masters=data.get("masters"))
     await state.update_data(ym=f"{y}-{m:02d}")
     head = "🔁 <b>Перенос записи</b>\n" if exclude else ""
     text = (f"{head}<b>Шаг 3 из 6 · Выбери дату</b> 📅\n\n"
             f"🎀 {h(data['title'])} · {rub(data['price'], data.get('pfrom'))} · {dur(data['dur'])}\n\n{CAL_LEGEND}")
-    near = await nearest_free(db, data["dur"], now, 3) if not exclude else []
+    near = await nearest_free(db, data["dur"], now, 3, masters=data.get("masters")) if not exclude else []
     if near:
         text += "\n\n✨ <b>Ближайшие окошки:</b> " + ", ".join(f"{human_date(d, False)} в {fmt_hm(t)}" for d, t in near)
     elif "free" not in days.values():
@@ -169,7 +170,7 @@ async def cb_back_cal(cb: CallbackQuery, db: DB, cfg: Config, state: FSMContext)
 # ---------- время ----------
 async def show_times(event, db: DB, cfg: Config, state: FSMContext, day: date):
     data = await state.get_data()
-    slots = await free_slots(db, day, data["dur"], local_now(cfg.tz), exclude_id=data.get("resched"))
+    slots = await free_slots(db, day, data["dur"], local_now(cfg.tz), exclude_id=data.get("resched"), masters=data.get("masters"))
     await state.update_data(day=day.isoformat())
     if not slots:
         await show(event, db, "В этот день свободных окошек уже не осталось 🥺 Выбери другую дату ♡",
@@ -206,7 +207,7 @@ async def cb_time(cb: CallbackQuery, db: DB, cfg: Config, state: FSMContext):
         return
     day = date.fromisoformat(day_s)
     t = int(hhmm[:2]) * 60 + int(hhmm[2:])
-    if t not in await free_slots(db, day, data["dur"], local_now(cfg.tz), exclude_id=data.get("resched")):
+    if t not in await free_slots(db, day, data["dur"], local_now(cfg.tz), exclude_id=data.get("resched"), masters=data.get("masters")):
         await cb.answer(SLOT_TAKEN, show_alert=True)
         await show_times(cb, db, cfg, state, day)
         return

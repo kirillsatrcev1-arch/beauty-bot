@@ -81,8 +81,6 @@ CREATE TABLE IF NOT EXISTS bookings(
 );
 CREATE INDEX IF NOT EXISTS ix_bookings_date ON bookings(date, status);
 CREATE INDEX IF NOT EXISTS ix_bookings_user ON bookings(user_id, status);
--- Последний рубеж защиты от двойной записи: два активных визита не могут начинаться в одну минуту.
-CREATE UNIQUE INDEX IF NOT EXISTS ux_bookings_active_start ON bookings(start) WHERE status IN ('pending','confirmed');
 
 CREATE TABLE IF NOT EXISTS day_overrides(
     date TEXT PRIMARY KEY,
@@ -132,6 +130,49 @@ CREATE TABLE IF NOT EXISTS media_cache(
     key TEXT PRIMARY KEY,
     file_id TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS masters(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT '',
+    bio TEXT NOT NULL DEFAULT '',
+    photo TEXT,
+    active INTEGER NOT NULL DEFAULT 1,
+    sort INTEGER NOT NULL DEFAULT 0,
+    work_days TEXT,
+    work_start TEXT,
+    work_end TEXT,
+    break_start TEXT,
+    break_end TEXT,
+    created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS master_services(
+    master_id INTEGER NOT NULL,
+    service_id INTEGER NOT NULL,
+    PRIMARY KEY(master_id, service_id)
+);
+CREATE TABLE IF NOT EXISTS master_overrides(
+    master_id INTEGER NOT NULL,
+    date TEXT NOT NULL,
+    closed INTEGER NOT NULL DEFAULT 0,
+    start TEXT,
+    end TEXT,
+    PRIMARY KEY(master_id, date)
+);
+CREATE TABLE IF NOT EXISTS vacations(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    master_id INTEGER NOT NULL,
+    date_from TEXT NOT NULL,
+    date_to TEXT NOT NULL,
+    note TEXT
+);
+CREATE TABLE IF NOT EXISTS time_blocks(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    master_id INTEGER,
+    date TEXT NOT NULL,
+    start TEXT NOT NULL,
+    end TEXT NOT NULL,
+    reason TEXT
+);
 CREATE TABLE IF NOT EXISTS broadcasts(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     admin_id INTEGER,
@@ -179,23 +220,31 @@ DEFAULT_SETTINGS: dict[str, str] = {
     "remind_24": "1",
     "remind_2": "1",
     "review_delay_hours": "3",
+    "logo": "",
+    "instagram_url": "",
+    "vk_url": "",
+    "cancel_rules": "Отменить или перенести запись можно не позднее чем за 3 часа до визита. Если опаздываешь — напиши мне ♡",
+    "notify_new_clients": "1",
+    "why_us": "Стерильность в 3 этапа|Премиальные материалы|Носка от 3 недель|Уютная студия и кофе",
 }
 
 CATEGORIES = [
-    # id, title, emoji, группа для записи, сортировка
+    # id, title, emoji, группа для записи в чате, сортировка
     ("mani", "Маникюр", "💅", "mani", 1),
-    ("pedi", "Педикюр", "🦶", "pedi", 2),
-    ("ext", "Наращивание", "💎", "mani", 3),
-    ("combo", "Комплекс", "🎀", "combo", 4),
-    ("design", "Дизайн", "🎨", "extra", 5),
-    ("extra", "Доп. услуги", "✨", "extra", 6),
+    ("cover", "Маникюр + покрытие", "💗", "mani", 2),
+    ("removal", "Снятие покрытия", "🫧", "extra", 3),
+    ("strong", "Укрепление", "🤍", "mani", 4),
+    ("ext", "Наращивание", "💎", "mani", 5),
+    ("design", "Дизайн", "🎨", "extra", 6),
+    ("pedi", "Педикюр", "🦶", "pedi", 7),
+    ("combo", "Комплекс", "🎀", "combo", 8),
 ]
 
 SERVICES = [
-    ("mani", "Маникюр с покрытием", "Аппаратно-комбинированный маникюр, выравнивание и стойкое покрытие гель-лаком. Держится 3–4 недели.", 2000, 0, 120),
+    ("cover", "Маникюр с покрытием", "Аппаратно-комбинированный маникюр, выравнивание и стойкое покрытие гель-лаком. Держится 3–4 недели.", 2000, 0, 120),
     ("mani", "Маникюр без покрытия", "Бережная обработка кутикулы, форма, уход и масло. Для натуральной ухоженности.", 1000, 0, 60),
     ("mani", "Снятие + маникюр", "Снятие старого покрытия и аккуратный маникюр без покрытия.", 1300, 0, 75),
-    ("mani", "Укрепление ногтей", "Маникюр, укрепление базой или гелем и покрытие. Для тонких и ломких ногтей.", 2400, 0, 140),
+    ("strong", "Укрепление ногтей", "Маникюр, укрепление базой или гелем и покрытие. Для тонких и ломких ногтей.", 2400, 0, 140),
     ("ext", "Наращивание ногтей", "Наращивание на верхние формы любой длины и формы: миндаль, овал, квадрат.", 3200, 0, 180),
     ("ext", "Коррекция наращивания", "Коррекция отросших ногтей, восстановление архитектуры и новое покрытие.", 2600, 0, 150),
     ("pedi", "Педикюр с покрытием", "Аппаратный педикюр пальчиков и стоп, покрытие гель-лаком.", 2500, 0, 120),
@@ -203,9 +252,9 @@ SERVICES = [
     ("pedi", "Обработка стоп", "Аппаратная обработка стоп, удаление натоптышей, мягкий уход.", 1200, 0, 45),
     ("combo", "Маникюр + педикюр с покрытием", "Комплекс в 4 руки времени: идеально перед отпуском или праздником.", 4200, 0, 210),
     ("design", "Дизайн ногтей", "Втирка, стемпинг, наклейки, слайдеры, рисунок — цена зависит от сложности.", 300, 1, 20),
-    ("design", "Френч", "Классический или цветной френч на все ногти.", 500, 0, 30),
-    ("extra", "Снятие покрытия", "Аккуратное снятие гель-лака без вреда ногтю.", 300, 0, 20),
-    ("extra", "Парафинотерапия рук", "Тёплый парафин, увлажнение и мягкость кожи.", 500, 0, 20),
+    ("cover", "Френч", "Классический или цветной френч на все ногти.", 500, 0, 30),
+    ("removal", "Снятие покрытия", "Аккуратное снятие гель-лака без вреда ногтю.", 300, 0, 20),
+    ("mani", "Парафинотерапия рук", "Тёплый парафин, увлажнение и мягкость кожи.", 500, 0, 20),
 ]
 
 PORTFOLIO_SECTIONS = [
@@ -239,6 +288,7 @@ class DB:
         await self.conn.execute("PRAGMA busy_timeout=10000")
         await self.conn.execute("PRAGMA foreign_keys=ON")
         await self.conn.executescript(SCHEMA)
+        await self._migrate()
         await self._seed()
         await self.reload_settings()
 
@@ -305,6 +355,24 @@ class DB:
         row = await self.fetchone(sql, params)
         return next(iter(row.values())) if row else None
 
+    async def _columns(self, table: str) -> set[str]:
+        return {r["name"] for r in await self.fetchall(f"PRAGMA table_info({table})")}
+
+    async def _migrate(self) -> None:
+        """Добавляет новые колонки в существующую базу без потери данных."""
+        cols = await self._columns("bookings")
+        if "master_id" not in cols:
+            await self.execute("ALTER TABLE bookings ADD COLUMN master_id INTEGER NOT NULL DEFAULT 1")
+        if "master_name" not in cols:
+            await self.execute("ALTER TABLE bookings ADD COLUMN master_name TEXT")
+        if "master_id" not in await self._columns("extra_windows"):
+            await self.execute("ALTER TABLE extra_windows ADD COLUMN master_id INTEGER")
+        await self.execute("DROP INDEX IF EXISTS ux_bookings_active_start")
+        # Последний рубеж защиты от двойной записи: у мастера не может быть двух активных визитов с одним началом.
+        await self.execute("CREATE UNIQUE INDEX IF NOT EXISTS ux_bookings_master_start ON bookings(master_id, start)"
+                           " WHERE status IN ('pending','confirmed')")
+        await self.execute("CREATE INDEX IF NOT EXISTS ix_bookings_master ON bookings(master_id, date)")
+
     # ---------- начальные данные ----------
     async def _seed(self) -> None:
         for k, v in DEFAULT_SETTINGS.items():
@@ -314,6 +382,11 @@ class DB:
                 "INSERT OR IGNORE INTO categories(id, title, emoji, book_group, sort) VALUES(?,?,?,?,?)",
                 (cid, title, emoji, group, sort),
             )
+        if not await self.scalar("SELECT COUNT(*) FROM masters"):
+            name = await self.scalar("SELECT value FROM settings WHERE key='master_name'") or "Алина"
+            await self.execute(
+                "INSERT INTO masters(id, name, role, bio, sort, created_at) VALUES(1,?,?,?,0,?)",
+                (name, "Топ-мастер", "6 лет в nail-индустрии, аппаратный маникюр, архитектура и дизайн", now_str()))
         if not await self.scalar("SELECT COUNT(*) FROM services"):
             for i, (cat, title, desc, price, pfrom, dur) in enumerate(SERVICES):
                 await self.execute(
@@ -356,13 +429,16 @@ class DB:
     # ---------- пользователи ----------
     async def touch_user(self, user_id: int, username: str | None, first_name: str | None) -> dict:
         ts = now_str()
+        is_new = not await self.fetchone("SELECT 1 AS x FROM users WHERE id=?", (user_id,))
         await self.execute(
             "INSERT INTO users(id, username, first_name, created_at, last_seen) VALUES(?,?,?,?,?) "
             "ON CONFLICT(id) DO UPDATE SET username=excluded.username, first_name=excluded.first_name, "
             "last_seen=excluded.last_seen, blocked=0",
             (user_id, username, first_name, ts, ts),
         )
-        return await self.user(user_id)
+        u = await self.user(user_id)
+        u["_new"] = is_new
+        return u
 
     async def user(self, user_id: int) -> dict | None:
         return await self.fetchone("SELECT * FROM users WHERE id=?", (user_id,))

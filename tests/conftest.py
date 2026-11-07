@@ -102,6 +102,8 @@ class FakeSession(BaseSession):
 async def env(tmp_path):
     ensure_covers(COVERS)
     set_covers_dir(COVERS)
+    from app.media import set_upload_dir
+    set_upload_dir(tmp_path / "uploads")
     cfg = Config(bot_token=TOKEN, admin_ids={ADMIN}, db_path=str(tmp_path / "t.db"), data_dir=tmp_path, tz_name="Europe/Moscow")
     db = DB(cfg.db_path)
     await db.connect()
