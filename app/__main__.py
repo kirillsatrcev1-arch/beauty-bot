@@ -11,7 +11,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import BotCommand, BotCommandScopeChat, MenuButtonWebApp, WebAppInfo
 from aiohttp import web
 
-from .config import load_config
+from .config import APP_DIR, load_config
 from .covers import ensure_covers
 from .db import DB
 from .fsm_storage import SQLiteStorage
@@ -30,8 +30,11 @@ async def main() -> None:
     cfg = load_config()
     db = DB(cfg.db_path)
     await db.connect()
-    covers_dir = cfg.data_dir / "covers"
-    ensure_covers(covers_dir)
+    # готовые обложки лежат в проекте — при запуске ничего не рисуем (экономит память на маленьких тарифах)
+    covers_dir = APP_DIR / "assets" / "covers"
+    if not any(covers_dir.glob("*.jpg")):
+        covers_dir = cfg.data_dir / "covers"
+        ensure_covers(covers_dir)
     set_covers_dir(covers_dir)
     set_upload_dir(cfg.data_dir / "uploads")
 
