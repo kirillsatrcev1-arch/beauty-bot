@@ -4,7 +4,7 @@ from __future__ import annotations
 from aiogram import Bot, F, Router
 from aiogram.filters import CommandObject, CommandStart, Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery, Message, WebAppInfo
 
 from .. import keyboards as K
 from ..config import Config
@@ -37,7 +37,20 @@ async def cmd_start(message: Message, command: CommandObject, db: DB, cfg: Confi
         sid = int(arg[4:]) if arg.startswith("svc_") and arg[4:].isdigit() else None
         await start_booking(message, db, cfg, state, bot, svc_id=sid)
         return
+    if cfg.webapp_url:
+        # минималистичный вход: всё происходит в приложении
+        await show(message, db, MINI_WELCOME, K.kb(
+            [K.B(text="✨ Открыть студию", web_app=WebAppInfo(url=cfg.webapp_url))],
+            [K.B(text="Меню в чате", callback_data="home")],
+        ), photo="cover:welcome")
+        return
     await show_home(message, db, cfg)
+
+
+MINI_WELCOME = (
+    "<b>Добро пожаловать в мой beauty world! 🎀</b>\n\n"
+    "Запись, прайс, мои работы и свободные окошки — в приложении. Нажми кнопку ниже ♡"
+)
 
 
 @router.message(Command("menu"))

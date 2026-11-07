@@ -3,594 +3,688 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<title>Beauty Studio</title>
+<title>Nail Studio</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-@font-face{font-family:"Cormorant";font-style:italic;font-weight:500;font-display:swap;src:url(/static/fonts/cormorant-garamond-cyrillic-500-italic.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Cormorant";font-style:italic;font-weight:500;font-display:swap;src:url(/static/fonts/cormorant-garamond-latin-500-italic.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Cormorant";font-style:normal;font-weight:600;font-display:swap;src:url(/static/fonts/cormorant-garamond-cyrillic-600-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Cormorant";font-style:normal;font-weight:600;font-display:swap;src:url(/static/fonts/cormorant-garamond-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122}
-@font-face{font-family:"Manrope";font-weight:400;font-display:swap;src:url(/static/fonts/manrope-cyrillic-400-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Manrope";font-weight:400;font-display:swap;src:url(/static/fonts/manrope-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122,U+2212}
-@font-face{font-family:"Manrope";font-weight:500;font-display:swap;src:url(/static/fonts/manrope-cyrillic-500-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Manrope";font-weight:500;font-display:swap;src:url(/static/fonts/manrope-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122,U+2212}
-@font-face{font-family:"Manrope";font-weight:600;font-display:swap;src:url(/static/fonts/manrope-cyrillic-600-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Manrope";font-weight:600;font-display:swap;src:url(/static/fonts/manrope-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122,U+2212}
-@font-face{font-family:"Manrope";font-weight:700;font-display:swap;src:url(/static/fonts/manrope-cyrillic-700-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Manrope";font-weight:700;font-display:swap;src:url(/static/fonts/manrope-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122,U+2212}
+/*FONTS*/
+@font-face{font-family:"Onest";font-weight:400;font-display:swap;src:url(/static/fonts/onest-cyrillic-400-normal.woff2) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Onest";font-weight:400;font-display:swap;src:url(/static/fonts/onest-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2122,U+2212}
+@font-face{font-family:"Onest";font-weight:500;font-display:swap;src:url(/static/fonts/onest-cyrillic-500-normal.woff2) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Onest";font-weight:500;font-display:swap;src:url(/static/fonts/onest-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2122,U+2212}
+@font-face{font-family:"Onest";font-weight:600;font-display:swap;src:url(/static/fonts/onest-cyrillic-600-normal.woff2) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Onest";font-weight:600;font-display:swap;src:url(/static/fonts/onest-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2122,U+2212}
+@font-face{font-family:"Onest";font-weight:700;font-display:swap;src:url(/static/fonts/onest-cyrillic-700-normal.woff2) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Onest";font-weight:700;font-display:swap;src:url(/static/fonts/onest-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2122,U+2212}
+@font-face{font-family:"Onest";font-weight:800;font-display:swap;src:url(/static/fonts/onest-cyrillic-800-normal.woff2) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Onest";font-weight:800;font-display:swap;src:url(/static/fonts/onest-latin-800-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2122,U+2212}
+@font-face{font-family:"Unbounded";font-weight:700;font-display:swap;src:url(/static/fonts/unbounded-cyrillic-700-normal.woff2) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Unbounded";font-weight:700;font-display:swap;src:url(/static/fonts/unbounded-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2122,U+2212}
+/*/FONTS*/
 
+/* Тёмный минимализм: жирная типографика, яркие плитки-направления, синий акцент, плавающая нижняя панель */
 :root{
-  --milk:#fbf7f4; --pearl:#f4efec; --powder:#f2dcdc; --powder-2:#ecc9c9; --beige:#e9dccf; --champagne:#e8d5b5;
-  --gold:#b8975a; --gold-soft:rgba(184,151,90,.28); --ink:#3f2f2c; --ink-2:#6e5a55; --ink-3:#a2908a;
-  --card:#fffdfb; --line:rgba(120,90,70,.12); --shadow:0 18px 40px -22px rgba(110,70,60,.35);
-  --r:22px; --ease:cubic-bezier(.22,.8,.24,1);
-  --serif:"Cormorant","Cormorant Garamond",Georgia,serif; --sans:"Manrope",system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+  --bg:#0b0b0d; --card:#17171b; --card-2:#202026; --line:rgba(255,255,255,.07);
+  --text:#f6f6f8; --muted:#8c8c96; --faint:#4a4a52;
+  --accent:#3d7bff; --accent-2:#7a5cff; --pink:#ff6fae;
+  --t-coral:#f2594f; --t-lilac:#b98cf5; --t-sun:#f7c843; --t-plum:#5b2367; --t-mint:#bff0d9; --t-cyan:#38d4e6;
+  --r:22px; --ease:cubic-bezier(.2,.8,.2,1);
+  --display:"Unbounded","Onest",system-ui,sans-serif; --sans:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
   --safe-b:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--milk);color:var(--ink);font:400 15px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+html,body{margin:0;background:var(--bg);color:var(--text);font:500 15px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
 body{min-height:100vh;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(60% 40% at 100% 0%,rgba(242,220,220,.75),transparent 70%),
-             radial-gradient(50% 35% at 0% 30%,rgba(232,213,181,.45),transparent 70%),
-             radial-gradient(70% 40% at 50% 100%,rgba(242,220,220,.5),transparent 70%),var(--milk)}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
 input,textarea{font:inherit;color:inherit}
 img{display:block;max-width:100%}
-.wrap{max-width:560px;margin:0 auto;padding:18px 16px calc(110px + var(--safe-b))}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding-block:14px calc(120px + var(--safe-b));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 
-/* типографика */
-.eyebrow{font:600 10.5px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
-.h1{font:500 italic 40px/1.02 var(--serif);letter-spacing:-.01em;margin:10px 0 0}
-.h2{font:500 italic 30px/1.08 var(--serif);margin:0}
-.h3{font:600 19px/1.2 var(--serif);margin:0}
-.muted{color:var(--ink-2)}
+.h1{font:800 32px/1.05 var(--sans);letter-spacing:-.03em;margin:4px 0 14px;text-wrap:balance}
+.h2{font:800 22px/1.1 var(--sans);letter-spacing:-.02em;margin:0}
+.sec{display:flex;align-items:center;justify-content:space-between;margin:28px 0 12px}
+.sec .h2{font-size:19px}
+.link{font:600 13px/1 var(--sans);color:var(--muted)}
+.muted{color:var(--muted)}
 .small{font-size:13px}
-.rule{display:flex;align-items:center;gap:10px;margin:26px 0 14px}
-.rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold-soft),transparent)}
 
-/* шапка */
-.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.mono{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold-soft);
-  font:500 italic 20px/1 var(--serif);color:var(--gold);background:rgba(255,255,255,.6)}
-
-/* карточки */
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
-.hero{position:relative;overflow:hidden;border-radius:28px;aspect-ratio:16/10;box-shadow:var(--shadow);border:1px solid var(--line)}
-.hero img{width:100%;height:100%;object-fit:cover}
-.lead{font-size:15.5px;color:var(--ink-2);margin:14px 2px 0}
-.lead b{color:var(--ink);font-weight:600}
-
-/* кнопки */
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;border-radius:999px;
-  background:var(--ink);color:var(--milk);font:600 15px/1 var(--sans);letter-spacing:.01em;
-  box-shadow:0 14px 28px -16px rgba(63,47,44,.8),inset 0 0 0 1px rgba(232,213,181,.25);transition:transform .2s var(--ease),opacity .2s}
-.btn:active{transform:scale(.97)}
-.btn[disabled]{opacity:.45;pointer-events:none}
-.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--gold-soft)}
-.btn.soft{background:var(--powder);color:var(--ink);box-shadow:none}
-.btn.sm{min-height:40px;width:auto;padding:0 16px;font-size:13.5px}
-.chip{flex:none;height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.7);
-  font:500 13.5px/1 var(--sans);color:var(--ink-2);transition:all .25s var(--ease);white-space:nowrap}
-.chip.on{background:var(--ink);color:var(--milk);border-color:var(--ink)}
-.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px 4px}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px}
 .chips::-webkit-scrollbar{display:none}
+.chip{flex:none;height:40px;padding:0 16px;border-radius:999px;background:var(--card);font:700 13.5px/1 var(--sans);color:var(--text);white-space:nowrap;transition:transform .2s var(--ease),background .2s}
+.chip:active{transform:scale(.96)}
+.chip.on{background:var(--accent);color:#fff}
+.chip.ghost{background:transparent;box-shadow:inset 0 0 0 1px var(--line);color:var(--muted)}
+.seg{display:inline-flex;background:var(--card);border-radius:999px;padding:3px}
+.seg button{height:30px;padding:0 13px;border-radius:999px;font:700 12.5px/1 var(--sans);color:var(--muted);transition:all .2s}
+.seg button.on{background:#fff;color:#000}
+.search{display:flex;align-items:center;gap:10px;height:50px;padding:0 16px;border-radius:16px;background:var(--card);margin:12px 0 14px;color:var(--muted)}
+.search input{flex:1;min-width:0;border:0;background:none;outline:none;font-weight:500}
+.search input::placeholder{color:var(--muted)}
 
-/* быстрые действия на главной */
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-.qa{padding:16px;border-radius:20px;background:rgba(255,255,255,.72);border:1px solid var(--line);text-align:left;transition:transform .2s var(--ease)}
-.qa:active{transform:scale(.97)}
-.qa .ic{font-size:20px}
-.qa .t{display:block;font:600 14px/1.2 var(--sans);margin-top:10px}
-.qa .s{display:block;font-size:12px;color:var(--ink-3);margin-top:3px}
+.promo{position:relative;overflow:hidden;border-radius:26px;padding:20px;background:linear-gradient(135deg,#3d6bff 0%,#5b4bff 55%,#7a3dff 100%);min-height:150px}
+.promo h3{font:800 22px/1.1 var(--sans);letter-spacing:-.02em;margin:0 0 6px;max-width:64%}
+.promo p{margin:0 0 14px;font-size:13px;color:rgba(255,255,255,.82);max-width:62%}
+.promo .btn-w{display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:999px;background:#fff;color:#111;font:700 13.5px/1 var(--sans)}
+.promo .art{position:absolute;right:-6px;bottom:-14px;width:42%;max-width:170px;pointer-events:none;transform:rotate(12deg)}
+.promo .art svg{width:100%;height:auto}
+.promo.pink{background:linear-gradient(135deg,#ff5f9e 0%,#c34bff 100%)}
 
-/* услуги */
-.svc{display:flex;gap:14px;padding:16px;margin-bottom:12px;align-items:flex-start;transition:transform .2s var(--ease)}
-.svc .ph{flex:none;width:76px;height:76px;border-radius:16px;overflow:hidden;background:var(--pearl)}
-.svc .ph img{width:100%;height:100%;object-fit:cover}
-.swatch{width:76px;height:76px;border-radius:16px;flex:none;position:relative;overflow:hidden;
-  background:linear-gradient(145deg,var(--powder),var(--champagne))}
-.swatch svg{position:absolute;inset:0;margin:auto}
-.svc .body{flex:1;min-width:0}
-.svc .ttl{font:600 15.5px/1.25 var(--sans)}
-.svc .dsc{font-size:13px;color:var(--ink-2);margin:4px 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.svc .row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.price{font:600 italic 21px/1 var(--serif);color:var(--ink);white-space:nowrap}
-.dur{font-size:12px;color:var(--ink-3);margin-left:8px}
-.heart{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--ink-3);font-size:16px;transition:all .25s var(--ease)}
-.heart.on{color:#b4596a;background:var(--powder);border-color:transparent;transform:scale(1.05)}
-.catbanner{border-radius:22px;overflow:hidden;aspect-ratio:16/7;margin:14px 0 16px;border:1px solid var(--line)}
-.catbanner img{width:100%;height:100%;object-fit:cover;object-position:left center}
+.marquee{overflow:hidden;margin:22px -16px 6px;white-space:nowrap;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee .run{display:inline-flex;gap:22px;animation:run 26s linear infinite;padding-left:16px}
+.marquee span{font:700 30px/1.15 var(--display);letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1px var(--faint);transition:color .5s,-webkit-text-stroke-color .5s}
+.marquee span.hl{color:var(--text);-webkit-text-stroke-color:transparent}
+.marquee span.hl2{color:var(--accent);-webkit-text-stroke-color:transparent}
+@keyframes run{to{transform:translateX(-50%)}}
 
-/* шаги записи */
-.steps{display:flex;gap:6px;margin:16px 0 18px}
-.steps i{flex:1;height:3px;border-radius:3px;background:var(--beige);transition:background .4s var(--ease)}
-.steps i.on{background:linear-gradient(90deg,var(--gold),var(--champagne))}
-.pick{display:flex;align-items:center;justify-content:space-between;width:100%;padding:16px 18px;margin-bottom:10px;text-align:left}
-.pick .t{font:600 15px/1.3 var(--sans)}
-.pick .s{font-size:12.5px;color:var(--ink-3);margin-top:2px}
-.pick .p{font:600 italic 19px/1 var(--serif);white-space:nowrap;margin-left:12px}
-.summary{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;background:rgba(255,255,255,.75)}
+.bento{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:78px;grid-auto-flow:dense;gap:10px}
+.tile{position:relative;overflow:hidden;border-radius:24px;text-align:left;padding:14px;display:flex;align-items:flex-end;transition:transform .25s var(--ease)}
+.tile:active{transform:scale(.97)}
+.tile b{position:relative;z-index:2;font:800 19px/1.05 var(--sans);letter-spacing:-.02em;color:#111}
+.tile.dark b{color:#fff}
+.tile .art{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 12px 14px rgba(0,0,0,.28))}
+.tile .cnt{position:absolute;top:12px;left:14px;z-index:2;font:700 11px/1 var(--sans);padding:6px 9px;border-radius:999px;background:rgba(0,0,0,.14);color:rgba(0,0,0,.72)}
+.tile.dark .cnt{background:rgba(255,255,255,.14);color:rgba(255,255,255,.85)}
+.span2{grid-row:span 2}.span3{grid-row:span 3}
 
-/* календарь */
-.cal{padding:16px 14px 18px}
-.cal-h{display:flex;align-items:center;justify-content:space-between;margin:0 4px 12px}
-.cal-h .m{font:500 italic 24px/1 var(--serif)}
-.nav{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;color:var(--ink-2)}
+.recent{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none}
+.recent button{flex:none;width:64px;text-align:center}
+.recent img,.recent .ph{width:64px;height:64px;border-radius:18px;object-fit:cover;background:var(--card)}
+.recent span{display:block;font:600 11px/1.2 var(--sans);color:var(--muted);margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.works{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.works button{border-radius:20px;overflow:hidden;aspect-ratio:3/4;background:var(--card);opacity:0;animation:rise .5s var(--ease) forwards}
+.works img{width:100%;height:100%;object-fit:cover}
+.carousel{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px;scrollbar-width:none}
+.carousel::-webkit-scrollbar{display:none}
+.carousel button{flex:none;width:76%;aspect-ratio:4/5;border-radius:26px;overflow:hidden;scroll-snap-align:center;background:var(--card);position:relative}
+.carousel img{width:100%;height:100%;object-fit:cover}
+.carousel .cap{position:absolute;left:12px;right:12px;bottom:12px;padding:10px 12px;border-radius:14px;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font:600 13px/1.25 var(--sans);text-align:left}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.card{background:var(--card);border-radius:var(--r)}
+.row{display:flex;align-items:center;gap:12px;padding:12px;border-radius:22px;background:var(--card);margin-bottom:10px;width:100%;text-align:left;transition:transform .2s var(--ease)}
+.row:active{transform:scale(.985)}
+.row .pic{flex:none;width:72px;height:72px;border-radius:16px;overflow:hidden;display:block}
+.row .pic img{width:100%;height:100%;object-fit:cover}
+.row .body{flex:1;min-width:0;display:block}
+.row .t{display:block;font:700 15px/1.25 var(--sans)}
+.row .s{display:block;font-size:12.5px;color:var(--muted);margin-top:3px}
+.row .p{display:block;font:800 16px/1 var(--sans);margin-top:8px}
+.plus{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font:600 22px/1 var(--sans)}
+.heart{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--card-2);color:var(--muted);font-size:17px;transition:all .25s var(--ease)}
+.heart.on{color:#fff;background:var(--pink)}
+.reviews{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px;scrollbar-width:none}
+.reviews::-webkit-scrollbar{display:none}
+.rv{flex:none;width:80%;scroll-snap-align:start;padding:18px}
+.rv .stars{color:var(--t-sun);letter-spacing:2px;font-size:13px}
+.rv p{margin:8px 0 10px;font:600 16px/1.35 var(--sans)}
+.info{padding:16px 18px;display:flex;gap:14px;align-items:center;width:100%;text-align:left;margin-bottom:10px}
+.info .ic{width:44px;height:44px;flex:none;border-radius:14px;display:grid;place-items:center;background:var(--card-2);font-size:19px}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:56px;border-radius:18px;background:var(--accent);color:#fff;font:700 15.5px/1 var(--sans);transition:transform .2s var(--ease),opacity .2s}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.btn.ghost{background:var(--card);color:var(--text)}
+.btn.sm{min-height:42px;width:auto;padding:0 16px;font-size:13.5px;border-radius:14px}
+.btn.danger{background:var(--card);color:#ff6b6b}
+
+.top{display:flex;align-items:center;gap:12px;margin:8px 0 6px}
+.back{width:42px;height:42px;flex:none;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:20px}
+.steps{display:flex;gap:6px;margin:10px 0 18px}
+.steps i{flex:1;height:4px;border-radius:4px;background:var(--card-2);transition:background .35s}
+.steps i.on{background:var(--accent)}
+.sum{display:flex;align-items:center;gap:12px;padding:12px;margin-bottom:14px}
+.sum .pic{width:52px;height:52px;border-radius:14px;overflow:hidden;flex:none}
+.sum .pic img{width:100%;height:100%;object-fit:cover}
+.cal{padding:16px 14px}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px}
+.cal-h b{font:800 18px/1 var(--sans);letter-spacing:-.02em}
+.nav{width:38px;height:38px;border-radius:50%;background:var(--card-2);display:grid;place-items:center;font-size:18px}
 .nav[disabled]{opacity:.25;pointer-events:none}
-.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.wd{font:600 10.5px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:6px 0 8px}
-.day{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font:500 15px/1 var(--sans);position:relative;color:var(--ink-3);transition:all .25s var(--ease)}
-.day.free{color:var(--ink);background:rgba(242,220,220,.45)}
-.day.free::after{content:"";position:absolute;bottom:6px;width:4px;height:4px;border-radius:50%;background:var(--gold)}
-.day.busy{text-decoration:line-through;text-decoration-color:rgba(160,120,110,.6);opacity:.6}
-.day.off{opacity:.35}
-.day.past{opacity:.18}
-.day.sel{background:var(--ink);color:var(--milk);transform:scale(1.06)}
-.day.sel::after{background:var(--champagne)}
-.legend{display:flex;gap:14px;justify-content:center;font-size:11.5px;color:var(--ink-3);margin-top:12px}
-.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:1px}
-.legend .lg-f::before{background:var(--powder-2)} .legend .lg-b::before{background:var(--beige)} .legend .lg-o::before{border:1px solid var(--ink-3)}
-.times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
-.time{height:46px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.75);font:600 14.5px/1 var(--sans);transition:all .2s var(--ease)}
-.time.on{background:var(--ink);color:var(--milk);border-color:var(--ink);transform:translateY(-2px)}
-.empty{padding:26px 18px;text-align:center;color:var(--ink-2)}
-.empty .h3{margin-bottom:6px}
-
-/* формы */
+.g7{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.wd{font:700 10.5px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px 0 8px}
+.day{aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font:700 14.5px/1 var(--sans);color:var(--faint);position:relative;transition:all .2s var(--ease)}
+.day.free{background:var(--card-2);color:var(--text)}
+.day.free::after{content:"";position:absolute;bottom:6px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.day.busy{text-decoration:line-through}
+.day.past,.day.off{opacity:.45}
+.day.sel{background:var(--accent);color:#fff;transform:scale(1.05)}
+.day.sel::after{background:#fff}
+.legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:12px}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:3px;margin-right:5px}
+.times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.time{height:48px;border-radius:14px;background:var(--card);font:700 15px/1 var(--sans);transition:all .2s var(--ease)}
+.time.on{background:var(--accent);color:#fff;transform:translateY(-2px)}
 .field{display:block;margin-bottom:12px}
-.field span{display:block;font:600 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:0 0 8px 4px}
-.field input,.field textarea{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.85);border-radius:16px;padding:15px 16px;outline:none;transition:border .2s,box-shadow .2s;resize:none}
-.field input:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(184,151,90,.12)}
-.err{color:#a04a55;font-size:13px;margin:-4px 0 10px 4px}
-
-/* подтверждение */
-.ticket{padding:22px 20px;position:relative;overflow:hidden}
-.ticket::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold-soft);border-radius:16px;pointer-events:none}
-.tl{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.field span{display:block;font:700 12px/1 var(--sans);color:var(--muted);margin:0 0 8px 4px}
+.field input,.field textarea{width:100%;border:0;background:var(--card);border-radius:16px;padding:16px;outline:none;resize:none;transition:box-shadow .2s}
+.field input:focus,.field textarea:focus{box-shadow:0 0 0 2px var(--accent)}
+.err{color:#ff7a7a;font-size:13px;margin:-4px 0 10px 4px}
+.ticket{padding:4px 18px}
+.tl{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px}
 .tl:last-child{border:0}
-.tl .k{width:118px;flex:none;color:var(--ink-3);white-space:nowrap}
-.tl .v{font-weight:600}
-.done-ic{width:92px;height:92px;margin:6px auto 10px;display:block}
-.done-ic path{stroke-dasharray:120;stroke-dashoffset:120;animation:draw 1.1s .2s var(--ease) forwards}
-@keyframes draw{to{stroke-dashoffset:0}}
-.spark{position:absolute;color:var(--gold);animation:tw 2.4s infinite var(--ease);opacity:0}
-@keyframes tw{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+.tl .k{color:var(--muted);flex:none}
+.tl .v{font-weight:700;text-align:right}
+.done{text-align:center;padding-top:10px}
+.done .big{width:96px;height:96px;margin:10px auto 18px;border-radius:32px;background:var(--accent);display:grid;place-items:center;animation:pop .6s var(--ease)}
+@keyframes pop{0%{transform:scale(.4) rotate(-12deg);opacity:0}100%{transform:none;opacity:1}}
+.empty{padding:28px 18px;text-align:center;color:var(--muted)}
 
-/* мои записи */
-.bk{padding:18px;margin-bottom:12px}
-.badge{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:600 11.5px/1 var(--sans);background:var(--pearl);color:var(--ink-2)}
-.badge.confirmed{background:var(--powder);color:#8a4050}
-.badge.pending{background:#f6efe3;color:#8a6a2f}
-.bk .when{font:500 italic 26px/1.1 var(--serif);margin:10px 0 2px}
+.me{display:flex;align-items:center;gap:14px;margin:10px 0 8px}
+.ava{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--pink),var(--accent-2));font:800 22px/1 var(--sans);color:#fff;flex:none}
+.bk{padding:16px;margin-bottom:10px}
+.badge{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font:700 11.5px/1 var(--sans);background:var(--card-2);color:var(--muted)}
+.badge.confirmed{background:rgba(61,123,255,.18);color:#8fb2ff}
+.badge.pending{background:rgba(247,200,67,.16);color:var(--t-sun)}
+.bk .when{font:800 22px/1.1 var(--sans);letter-spacing:-.02em;margin:10px 0 3px}
 .bk .acts{display:flex;gap:8px;margin-top:14px}
-.hist{display:flex;justify-content:space-between;align-items:center;padding:13px 2px;border-bottom:1px solid var(--line);font-size:14px}
+.hist{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 2px;border-bottom:1px solid var(--line)}
+.hist:last-child{border:0}
 
-/* портфолио */
-.masonry{columns:2;column-gap:10px;margin-top:14px}
-.tile{break-inside:avoid;margin-bottom:10px;border-radius:18px;overflow:hidden;background:var(--pearl);position:relative;
-  opacity:0;transform:translateY(12px);animation:rise .6s var(--ease) forwards}
-.tile img{width:100%;height:auto;min-height:120px;object-fit:cover}
-@keyframes rise{to{opacity:1;transform:none}}
-.lb{position:fixed;inset:0;z-index:50;background:#1e1614;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
+.dock{position:fixed;left:0;right:0;bottom:calc(14px + var(--safe-b));z-index:30;display:flex;justify-content:center;pointer-events:none;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.dock .in{pointer-events:auto;display:flex;gap:4px;padding:6px;border-radius:999px;background:rgba(30,30,36,.82);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 18px 40px -12px rgba(0,0,0,.7),inset 0 0 0 1px rgba(255,255,255,.06)}
+.dock button{height:52px;min-width:56px;padding:0 14px;border-radius:999px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#a0a0aa;transition:all .3s var(--ease)}
+.dock button svg{width:22px;height:22px}
+.dock button em{font:700 10px/1 var(--sans);font-style:normal;display:none}
+.dock button.on{background:var(--accent);color:#fff;min-width:76px}
+.dock button.on em{display:block}
+.dock .mini{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--pink),var(--accent-2));color:#fff;font:800 12px/1 var(--sans)}
+
+.veil{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .3s}
+.veil.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:560px;margin:0 auto;max-height:86vh;overflow:auto;padding:12px max(20px,env(safe-area-inset-right,0px)) calc(24px + var(--safe-b)) max(20px,env(safe-area-inset-left,0px));background:#141418;border-radius:28px 28px 0 0;transform:translateY(105%);transition:transform .45s var(--ease)}
+.sheet.open{transform:none}
+.sheet .grab{width:42px;height:5px;border-radius:5px;background:var(--faint);margin:0 auto 16px}
+.sheet .x{position:absolute;top:14px;right:16px;width:34px;height:34px;border-radius:50%;background:var(--card-2);font-size:14px;color:var(--muted)}
+.opt{display:flex;align-items:center;justify-content:space-between;width:100%;padding:15px 4px;border-bottom:1px solid var(--line);font:600 15px/1.2 var(--sans);text-align:left}
+.opt:last-child{border:0}
+.toast{position:fixed;left:50%;top:12px;z-index:60;transform:translate(-50%,-150%);background:#fff;color:#111;padding:12px 18px;border-radius:999px;font:700 13.5px/1.2 var(--sans);transition:transform .45s var(--ease);max-width:90vw;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.lb{position:fixed;inset:0;z-index:50;background:#000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
 .lb.open{opacity:1;pointer-events:auto}
 .lb .stage{flex:1;position:relative;overflow:hidden;touch-action:none}
 .lb .stage img{position:absolute;left:50%;top:50%;max-width:100%;max-height:100%;transform-origin:center;will-change:transform;user-select:none;-webkit-user-drag:none}
-.lb .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px calc(14px + var(--safe-b));color:#f4efec}
-.lb .x{position:absolute;top:14px;right:14px;z-index:2;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:20px}
-.lb .cap{font:500 italic 18px/1.3 var(--serif)}
-
-/* отзывы */
-.reviews{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:4px 16px 8px;scrollbar-width:none}
-.reviews::-webkit-scrollbar{display:none}
-.rv{flex:none;width:78%;scroll-snap-align:start;padding:18px}
-.stars{color:var(--gold);letter-spacing:2px;font-size:13px}
-.rv p{font:500 italic 18px/1.35 var(--serif);margin:8px 0 10px}
-
-/* таббар */
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:8px 12px calc(10px + var(--safe-b));
-  background:linear-gradient(180deg,rgba(251,247,244,0),rgba(251,247,244,.92) 30%)}
-.tabs .in{max-width:560px;margin:0 auto;display:flex;justify-content:space-around;padding:8px;border-radius:26px;
-  background:rgba(255,253,251,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 14px 30px -18px rgba(90,60,50,.5)}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;border-radius:18px;font:600 10.5px/1 var(--sans);color:var(--ink-3);transition:all .25s var(--ease)}
-.tab svg{width:21px;height:21px}
-.tab.on{color:var(--ink);background:var(--pearl)}
-
-/* шторка и тост */
-.sheet-bg{position:fixed;inset:0;z-index:40;background:rgba(63,47,44,.35);opacity:0;pointer-events:none;transition:opacity .3s}
-.sheet-bg.open{opacity:1;pointer-events:auto}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:560px;margin:0 auto;padding:26px 20px calc(22px + var(--safe-b));
-  background:var(--milk);border-radius:28px 28px 0 0;transform:translateY(105%);transition:transform .45s var(--ease)}
-.sheet.open{transform:none}
-.sheet .grab{width:40px;height:4px;border-radius:4px;background:var(--beige);margin:-12px auto 18px}
-.toast{position:fixed;left:50%;top:14px;z-index:60;transform:translate(-50%,-140%);background:var(--ink);color:var(--milk);padding:12px 18px;border-radius:999px;
-  font:600 13.5px/1.2 var(--sans);box-shadow:var(--shadow);transition:transform .45s var(--ease);max-width:90vw;text-align:center}
-.toast.show{transform:translate(-50%,0)}
-
-/* появление экранов */
-.view{animation:viewin .5s var(--ease)}
-@keyframes viewin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.stagger>*{opacity:0;animation:rise .55s var(--ease) forwards}
-.stagger>*:nth-child(1){animation-delay:.03s}.stagger>*:nth-child(2){animation-delay:.08s}.stagger>*:nth-child(3){animation-delay:.13s}
-.stagger>*:nth-child(4){animation-delay:.18s}.stagger>*:nth-child(5){animation-delay:.23s}.stagger>*:nth-child(6){animation-delay:.28s}
-.stagger>*:nth-child(n+7){animation-delay:.32s}
-.skel{height:84px;border-radius:20px;background:linear-gradient(90deg,var(--pearl),#fff,var(--pearl));background-size:200% 100%;animation:sk 1.3s infinite;margin-bottom:10px}
+.lb .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px calc(16px + var(--safe-b))}
+.lb .x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;z-index:2;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:18px}
+.view{animation:viewin .45s var(--ease)}
+@keyframes viewin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.skel{height:84px;border-radius:20px;background:linear-gradient(90deg,var(--card),var(--card-2),var(--card));background-size:200% 100%;animation:sk 1.3s infinite;margin-bottom:10px}
 @keyframes sk{to{background-position:-200% 0}}
-.about p{margin:0 0 10px}
-.addr{padding:18px;display:flex;gap:14px;align-items:flex-start}
-.addr .pin{width:42px;height:42px;flex:none;border-radius:50%;background:var(--powder);display:grid;place-items:center;font-size:18px}
-.adm-row{padding:14px 16px;margin-bottom:10px}
-.adm-row .acts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.stagger>*,.tile{opacity:1;transform:none}}
+.adm{padding:14px;margin-bottom:10px}
+.adm .acts{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.quiz-opt{display:block;width:100%;text-align:left;padding:16px;border-radius:16px;background:var(--card);margin-bottom:8px;font:700 15px/1.2 var(--sans);transition:background .2s}
+.quiz-opt:active{background:var(--accent)}
+.demo-note{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);background:var(--card);border-radius:14px;padding:10px 12px;margin-bottom:8px}
+.demo-note button{flex:none;font:700 12px/1 var(--sans);color:var(--accent)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.works button{opacity:1}}
 </style>
 </head>
 <body>
 <main class="wrap" id="app"><div class="skel"></div><div class="skel"></div><div class="skel"></div></main>
-<nav class="tabs" id="tabs"></nav>
-<div class="sheet-bg" id="sheetBg"></div>
-<div class="sheet" id="sheet"></div>
-<div class="toast" id="toast"></div>
+<nav class="dock" id="dock"></nav>
+<div class="veil" id="veil"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast" role="status"></div>
 <div class="lb" id="lb"><button class="x" data-act="lb-close" aria-label="Закрыть">✕</button><div class="stage" id="stage"><img id="lbImg" alt=""></div>
-  <div class="bar"><span class="cap" id="lbCap"></span><span class="small" id="lbN"></span></div></div>
+  <div class="bar"><span class="small" id="lbCap"></span><span class="small muted" id="lbN"></span></div></div>
 
 <script>
-const tg = (window.Telegram && window.Telegram.WebApp) || {initData:"",ready(){},expand(){},HapticFeedback:null,BackButton:null,openTelegramLink:u=>window.open(u),openLink:u=>window.open(u),close(){}};
-try{tg.ready();tg.expand();tg.setHeaderColor&&tg.setHeaderColor("#fbf7f4");tg.setBackgroundColor&&tg.setBackgroundColor("#fbf7f4");tg.disableVerticalSwipes&&tg.disableVerticalSwipes()}catch(e){}
-const $=s=>document.querySelector(s);
-const app=$("#app");
+const tg=window.DEMO_TG||(window.Telegram&&window.Telegram.WebApp)||{initData:"",ready(){},expand(){},openTelegramLink:u=>window.open(u),openLink:u=>window.open(u),close(){}};
+try{tg.ready();tg.expand();tg.setHeaderColor&&tg.setHeaderColor("#0b0b0d");tg.setBackgroundColor&&tg.setBackgroundColor("#0b0b0d");tg.setBottomBarColor&&tg.setBottomBarColor("#0b0b0d");tg.disableVerticalSwipes&&tg.disableVerticalSwipes()}catch(e){}
+const $=s=>document.querySelector(s), app=$("#app");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const rub=(n,from)=>(from?"от ":"")+Number(n).toLocaleString("ru-RU").replace(/,/g," ")+" ₽";
 const dur=m=>{const h=Math.floor(m/60),mm=m%60;return h&&mm?`${h} ч ${mm} мин`:h?`${h} ч`:`${mm} мин`};
 const MONTHS=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
 const MONTHS_N=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
 const WD=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
+const pad=n=>String(n).padStart(2,"0");
+const isoOf=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 const hdate=(iso,wd=true)=>{const d=new Date(iso+"T12:00:00");return `${d.getDate()} ${MONTHS[d.getMonth()]}`+(wd?`, ${WD[d.getDay()]}`:"")};
 const haptic=(t="light")=>{try{tg.HapticFeedback&&tg.HapticFeedback.impactOccurred(t)}catch(e){}};
 const STATUS={pending:["pending","ждёт подтверждения"],confirmed:["confirmed","подтверждена"],done:["","визит состоялся"],cancelled:["","отменена"],expired:["","не подтверждена"]};
 const params=new URLSearchParams(location.search);
+const store={get(k,d){try{return JSON.parse(localStorage.getItem("ns:"+k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem("ns:"+k,JSON.stringify(v))}catch(e){}}};
+const plural=(n,a,b,c)=>{const m=n%10,h=n%100;return m===1&&h!==11?a:m>=2&&m<=4&&(h<12||h>14)?b:c};
 function fmtPhone(raw){let d=String(raw).replace(/\D/g,"");if(d.length===11&&d[0]==="8")d="7"+d.slice(1);if(d.length===10)d="7"+d;
   if(d.length===11&&d[0]==="7")return `+7 ${d.slice(1,4)} ${d.slice(4,7)}-${d.slice(7,9)}-${d.slice(9)}`;return d?"+"+d:raw}
 
-async function api(path,body){
+async function realApi(path,body){
   const r=await fetch(path,{method:body?"POST":"GET",headers:{"X-Init-Data":tg.initData||"","Content-Type":"application/json"},body:body?JSON.stringify(body):undefined});
   let j={};try{j=await r.json()}catch(e){}
   if(!r.ok||j.ok===false){const e=new Error(j.error||"error");e.data=j;e.status=r.status;throw e}
   return j;
 }
+const api=window.DEMO_API||realApi;
 function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),2600)}
-function sheet(html){$("#sheet").innerHTML='<div class="grab"></div>'+html;$("#sheet").classList.add("open");$("#sheetBg").classList.add("open")}
-function closeSheet(){$("#sheet").classList.remove("open");$("#sheetBg").classList.remove("open")}
-$("#sheetBg").onclick=closeSheet;
+function sheet(html){$("#sheet").innerHTML='<div class="grab"></div><button class="x" data-act="sheet-close" aria-label="Закрыть">✕</button>'+html;$("#sheet").scrollTop=0;$("#sheet").classList.add("open");$("#veil").classList.add("open")}
+function closeSheet(){$("#sheet").classList.remove("open");$("#veil").classList.remove("open")}
+$("#veil").onclick=closeSheet;
 
-const S={boot:null,tab:params.get("tab")||"home",cat:null,pf:{s:params.get("s")||"nude",items:[]},b:null,my:null,adm:{date:null}};
-const ICONS={
- home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/></svg>',
- prices:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3h6l1 4H8zM7.5 7h9l-1 13a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1z"/><path d="M10 12h4"/></svg>',
- book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17M12 13.5v4M10 15.5h4"/></svg>',
- portfolio:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="m4 17 5-5 4 4 2.5-2.5L20 18"/><circle cx="15.5" cy="8.5" r="1.6"/></svg>',
- my:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20.5s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.9c0 5.6-7.5 10-7.5 10z"/></svg>',
- admin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m3.5 8 4.5 4 4-7 4 7 4.5-4-2 11h-13z"/></svg>'
+/* ---------- векторные иллюстрации направлений ---------- */
+const ART={
+ bottle:(c="#1b4dff")=>`<svg viewBox="0 0 120 170" width="96" height="136"><rect x="44" y="6" width="32" height="70" rx="12" fill="#f3e7d3"/><rect x="50" y="12" width="7" height="56" rx="3.5" fill="#fff" opacity=".7"/>
+   <rect x="20" y="70" width="80" height="92" rx="22" fill="#fff" opacity=".8"/><rect x="30" y="82" width="60" height="68" rx="16" fill="${c}"/><rect x="36" y="88" width="10" height="44" rx="5" fill="#fff" opacity=".45"/></svg>`,
+ gem:()=>`<svg viewBox="0 0 140 120" width="110" height="94"><polygon points="20,40 45,12 95,12 120,40 70,110" fill="#e9e3ff"/><polygon points="20,40 120,40 70,110" fill="#b7a6ff"/><polygon points="45,12 70,40 95,12" fill="#fff"/><polygon points="20,40 45,12 70,40" fill="#d6ccff"/><polygon points="70,40 95,12 120,40" fill="#cfc4ff"/><polygon points="45,40 70,110 95,40" fill="#9b86ff"/></svg>`,
+ brush:(c="#ff3d6e")=>`<svg viewBox="0 0 160 160" width="118" height="118"><g transform="rotate(32 80 80)"><rect x="70" y="40" width="20" height="120" rx="10" fill="#1d1d1d"/><rect x="74" y="44" width="5" height="100" rx="2.5" fill="#fff" opacity=".35"/><rect x="68" y="28" width="24" height="16" rx="4" fill="#d9d9d9"/><path d="M70 28 C70 10 76 -2 80 -6 C84 -2 90 10 90 28 Z" fill="${c}"/></g></svg>`,
+ foot:()=>`<svg viewBox="0 0 120 160" width="84" height="112"><ellipse cx="60" cy="102" rx="30" ry="50" fill="#fff" opacity=".93"/>${[[32,42,9],[47,31,8],[62,28,8],[77,32,7],[90,41,6]].map(([x,y,r])=>`<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*1.25}" fill="#fff" opacity=".93"/><ellipse cx="${x}" cy="${y-r*.45}" rx="${r*.58}" ry="${r*.48}" fill="#ff5f9e"/>`).join("")}</svg>`,
+ spark:()=>`<svg viewBox="0 0 140 140" width="104" height="104">${[[70,62,40],[28,30,16],[112,106,18]].map(([x,y,r])=>`<path d="M${x} ${y-r} C${x+r*.18} ${y-r*.18} ${x+r*.18} ${y-r*.18} ${x+r} ${y} C${x+r*.18} ${y+r*.18} ${x+r*.18} ${y+r*.18} ${x} ${y+r} C${x-r*.18} ${y+r*.18} ${x-r*.18} ${y+r*.18} ${x-r} ${y} C${x-r*.18} ${y-r*.18} ${x-r*.18} ${y-r*.18} ${x} ${y-r}Z" fill="#fff"/>`).join("")}</svg>`,
+ heart:()=>`<svg viewBox="0 0 140 130" width="104" height="96"><path d="M70 120 C20 86 6 60 10 40 C14 16 44 6 70 34 C96 6 126 16 130 40 C134 60 120 86 70 120Z" fill="#ff5f9e"/><path d="M34 34 C40 24 52 22 60 30" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none" opacity=".6"/></svg>`
 };
-function renderTabs(){
-  const t=[["home","Главная"],["prices","Прайс"],["book","Запись"],["portfolio","Работы"],["my","Мои"]];
-  if(S.boot&&S.boot.user.is_admin)t.push(["admin","Мастер"]);
-  $("#tabs").innerHTML='<div class="in">'+t.map(([k,l])=>`<button class="tab ${S.tab===k?"on":""}" data-tab="${k}">${ICONS[k]}<span>${l}</span></button>`).join("")+"</div>";
+const CAT_LOOK={
+  mani:{bg:"var(--t-coral)",art:ART.bottle("#1b4dff"),pos:"right:-4px;top:-6px",span:"span3"},
+  ext:{bg:"var(--t-lilac)",art:ART.gem(),pos:"right:-10px;top:4px",span:"span2"},
+  design:{bg:"var(--t-sun)",art:ART.brush("#ff3d6e"),pos:"right:-18px;top:-14px",span:"span2"},
+  pedi:{bg:"var(--t-plum)",art:ART.foot(),pos:"right:4px;top:-10px",span:"span2",dark:1},
+  combo:{bg:"var(--t-cyan)",art:ART.heart(),pos:"right:-10px;top:10px",span:"span3"},
+  extra:{bg:"var(--t-mint)",art:ART.spark(),pos:"right:-8px;top:-8px",span:"span2"}
+};
+const lookOf=id=>CAT_LOOK[id]||{bg:"var(--card-2)",art:ART.spark(),pos:"right:0;top:0",span:"span2",dark:1};
+const picHtml=s=>s.photo?`<img src="${s.photo}" loading="lazy" alt="">`:`<span style="width:100%;height:100%;display:grid;place-items:center;background:${lookOf(s.category).bg};overflow:hidden"><span style="transform:scale(.5);display:block">${lookOf(s.category).art}</span></span>`;
+
+/* ---------- состояние ---------- */
+const S={boot:null,tab:params.get("tab")||"home",cat:null,q:"",pf:{s:params.get("s")||null,items:[],view:store.get("pfview","grid"),loading:false},b:null,my:null,adm:{data:null}};
+const ICON={
+ home:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7.5" height="7.5" rx="2.2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2.2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2.2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2.2"/></svg>',
+ search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.5-4.5"/></svg>',
+ book:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2.5a1 1 0 0 1 1 1V5h8V3.5a1 1 0 1 1 2 0V5h.5A2.5 2.5 0 0 1 21 7.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-11A2.5 2.5 0 0 1 5.5 5H6V3.5a1 1 0 0 1 1-1ZM5 10v8.5c0 .3.2.5.5.5h13c.3 0 .5-.2.5-.5V10H5Z"/></svg>'
+};
+const searchIcon='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.5-4.5"/></svg>';
+function renderDock(){
+  const init=esc(((S.boot&&S.boot.user.name)||"Я")[0].toUpperCase());
+  const items=[["home","Главная",ICON.home],["services","Услуги",ICON.search],["book","Запись",ICON.book],["me","Профиль",`<span class="mini">${init}</span>`]];
+  $("#dock").innerHTML='<div class="in">'+items.map(([k,l,i])=>`<button class="${S.tab===k?"on":""}" data-tab="${k}" aria-label="${l}">${i}<em>${l}</em></button>`).join("")+"</div>";
 }
-function go(tab){S.tab=tab;haptic();renderTabs();render();window.scrollTo({top:0,behavior:"instant"})}
-function nailSvg(seed){
-  const pals=[["#ecccc3","#e2b8ab"],["#f0c4c8","#e2a7b2"],["#a8283b","#86192b"],["#f6ece6","#e8d5cc"],["#c9a38f","#b0856f"]];
-  const [a,b]=pals[seed%pals.length];
-  return `<svg width="46" height="62" viewBox="0 0 46 62"><defs><linearGradient id="g${seed}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><path d="M23 2C33 14 40 30 40 42a17 17 0 0 1-34 0C6 30 13 14 23 2z" fill="url(#g${seed})"/><path d="M16 22c2-6 4-10 6-13" stroke="#fff" stroke-opacity=".7" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg>`;
-}
-const header=(eyebrow,title)=>`<div class="top"><div><div class="eyebrow">${esc(eyebrow)}</div><h1 class="h1">${title}</h1></div><div class="mono">${esc((S.boot?.studio.master||"B")[0])}</div></div>`;
+function go(tab){S.tab=tab;haptic();renderDock();render();window.scrollTo({top:0,behavior:"instant"})}
 
 /* ---------- главная ---------- */
+const WORDS=["Маникюр","Педикюр","Наращивание","Френч","Втирка","Дизайн","Покрытие","Укрепление"];
+let marqueeTimer;
 function vHome(){
-  const st=S.boot.studio, rv=S.boot.reviews;
-  const about=(st.about||"").replace(/<[^>]+>/g,"").split("\n").filter(Boolean)[0]||"";
+  const st=S.boot.studio, cats=S.boot.categories.filter(c=>S.boot.services.some(s=>s.category===c.id));
+  const recent=store.get("recent",[]).map(id=>S.boot.services.find(s=>s.id===id)).filter(Boolean);
+  const rv=S.boot.reviews;
+  const words=[...WORDS,...WORDS].map((w,i)=>`<span data-w="${i%WORDS.length}">${w}</span>`).join("");
   return `<div class="view">
-  ${header(st.name||"Beauty studio","beauty <span style='color:var(--gold)'>world</span>")}
-  <div class="hero"><img src="${st.images.welcome}" alt=""></div>
-  <p class="lead"><b>Добро пожаловать в мой beauty world! 🎀</b><br>Здесь начинается твоя маленькая история красоты и заботы о себе. Выбирай услугу, вдохновляйся моими работами и бронируй удобное время ♡</p>
-  <div style="margin-top:18px"><button class="btn" data-tab="book">🎀 Записаться на процедуру</button></div>
-  <div class="quick stagger">
-    <button class="qa" data-tab="prices"><span class="ic">💅</span><span class="t">Прайс-лист</span><span class="s">услуги и цены</span></button>
-    <button class="qa" data-tab="portfolio"><span class="ic">🦢</span><span class="t">Портфолио</span><span class="s">мои работы</span></button>
-    <button class="qa" data-act="about"><span class="ic">🤍</span><span class="t">Обо мне</span><span class="s">${esc(st.master)}</span></button>
-    <button class="qa" data-act="contact"><span class="ic">💌</span><span class="t">Связаться</span><span class="s">отвечаю быстро</span></button>
+  ${window.DEMO_API?`<div class="demo-note"><span>Демо: данные примерные, записи хранятся только на этом устройстве</span><button data-act="reset">Сбросить</button></div>`:""}
+  <div class="small muted" style="margin-top:8px">${esc(st.name||"Nail studio")} · мастер ${esc(st.master)}</div>
+  <h1 class="h1">Запишись на&nbsp;ноготочки</h1>
+  <div class="chips">
+    <button class="chip on" data-act="free-today">Свободно сегодня</button>
+    <button class="chip" data-act="free-tomorrow">Завтра</button>
+    <button class="chip" data-act="nearest">Ближайшее окно</button>
+    <button class="chip" data-tab="services">Прайс</button>
   </div>
-  <div class="rule"><span class="eyebrow">Обо мне</span></div>
-  <div class="card" style="padding:18px"><div class="h3" style="font-size:22px;font-style:italic;font-weight:500">${esc(st.master)}</div><p class="muted small" style="margin:6px 0 12px">${esc(about)}</p><button class="btn ghost sm" data-act="about">Подробнее</button></div>
-  <div class="rule"><span class="eyebrow">Адрес студии</span></div>
-  <div class="card addr"><div class="pin">📍</div><div><div style="font-weight:600">${esc(st.address)}</div><div class="small muted" style="margin-top:4px">${esc(st.address_hint)}</div>
-    ${st.map_url?`<button class="btn ghost sm" style="margin-top:12px" data-act="map">Открыть карту</button>`:""}</div></div>
-  ${rv.length?`<div class="rule"><span class="eyebrow">Отзывы · ${rv.length}</span></div><div class="reviews">${rv.map(r=>`<div class="card rv"><div class="stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</div><p>${esc(r.text||"Всё прекрасно ♡")}</p><div class="small muted">${esc(r.name||"Клиентка")}</div></div>`).join("")}</div>`:""}
+  <label class="search">${searchIcon}<input id="q" type="search" placeholder="Услуга, дизайн или цвет" enterkeyhint="search" autocomplete="off"></label>
+  <div class="promo"><h3>Не знаешь, что выбрать?</h3><p>Три вопроса — и подберу процедуру и свободное время</p>
+    <button class="btn-w" data-act="quiz">Подобрать</button><div class="art">${ART.bottle("#ff5f9e")}</div></div>
+  <div class="marquee" aria-hidden="true"><div class="run" id="run">${words}</div></div>
+  <div class="sec"><h2 class="h2">Направления</h2><button class="link" data-tab="services">Все услуги</button></div>
+  <div class="bento">${cats.map(c=>{const L=lookOf(c.id),n=S.boot.services.filter(s=>s.category===c.id).length;
+    return `<button class="tile ${L.span} ${L.dark?"dark":""}" style="background:${L.bg}" data-cat="${c.id}"><span class="cnt">${n} ${plural(n,"услуга","услуги","услуг")}</span><span class="art" style="${L.pos}">${L.art}</span><b>${esc(c.title)}</b></button>`}).join("")}</div>
+  ${recent.length?`<div class="sec"><h2 class="h2">Недавно смотрели</h2><button class="link" data-act="clear-recent">Очистить</button></div>
+   <div class="recent">${recent.map(s=>`<button data-svc="${s.id}">${s.photo?`<img src="${s.photo}" alt="">`:`<div class="ph" style="background:${lookOf(s.category).bg}"></div>`}<span>${esc(s.title)}</span></button>`).join("")}</div>`:""}
+  <div class="sec"><h2 class="h2">Мои работы</h2><div class="seg"><button class="${S.pf.view==="grid"?"on":""}" data-pfview="grid">Сетка</button><button class="${S.pf.view==="carousel"?"on":""}" data-pfview="carousel">Карусель</button></div></div>
+  <div class="chips" style="margin-bottom:12px">${S.boot.portfolio.map(p=>`<button class="chip ${p.id===S.pf.s?"on":"ghost"}" data-pf="${p.id}">${esc(p.title)}${p.count?` · ${p.count}`:""}</button>`).join("")}</div>
+  <div id="works">${worksHtml()}</div>
+  <div style="height:28px"></div>
+  <div class="promo pink"><h3>Свободные окошки — первыми</h3><p>Новые работы, акции и окна в последний момент — в моём канале</p>
+    <button class="btn-w" data-act="channel">Открыть канал</button><div class="art">${ART.heart()}</div></div>
+  ${rv.length?`<div class="sec"><h2 class="h2">Отзывы</h2><span class="link">${rv.length}</span></div><div class="reviews">${rv.map(r=>`<div class="card rv"><div class="stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</div><p>${esc(r.text||"Всё супер!")}</p><div class="small muted">${esc(r.name||"Клиентка")}</div></div>`).join("")}</div>`:""}
+  <div class="sec"><h2 class="h2">Студия</h2></div>
+  <button class="card info" data-act="about"><span class="ic">🤍</span><span><b>${esc(st.master)}</b><br><span class="small muted">Обо мне, опыт и материалы</span></span></button>
+  <button class="card info" data-act="map"><span class="ic">📍</span><span><b>${esc(st.address)}</b><br><span class="small muted">${esc(st.address_hint)}</span></span></button>
+  <button class="card info" data-act="contact"><span class="ic">💬</span><span><b>Написать мастеру</b><br><span class="small muted">Отвечу в Telegram</span></span></button>
   </div>`;
 }
-function showAbout(){
-  const st=S.boot.studio;
-  sheet(`<div class="eyebrow">Обо мне</div><h2 class="h2" style="margin:8px 0 14px">${esc(st.master)}</h2>
-  <div class="hero" style="aspect-ratio:16/9;margin-bottom:14px"><img src="${st.images.about}" alt=""></div>
-  <div class="about small" style="max-height:42vh;overflow:auto">${(st.about||"").split("\n").map(l=>`<p>${l}</p>`).join("")}</div>
-  <button class="btn" style="margin-top:12px" data-act="sheet-book">🎀 Записаться</button>`);
+function worksHtml(){
+  if(S.pf.loading)return '<div class="works"><div class="skel" style="height:200px"></div><div class="skel" style="height:200px"></div></div>';
+  const it=S.pf.items;
+  if(!it.length)return `<div class="card empty">Скоро здесь появятся работы этого раздела</div>`;
+  if(S.pf.view==="carousel")return `<div class="carousel">${it.map((x,i)=>`<button data-open="${i}"><img src="${x.src}" loading="lazy" alt="">${x.caption?`<span class="cap">${esc(x.caption)}</span>`:""}</button>`).join("")}</div>`;
+  return `<div class="works">${it.map((x,i)=>`<button data-open="${i}" style="animation-delay:${Math.min(i,8)*.05}s"><img src="${x.src}" loading="lazy" alt=""></button>`).join("")}</div>`;
 }
-function showContact(){
-  const st=S.boot.studio;
-  sheet(`<div class="eyebrow">Связь с мастером</div><h2 class="h2" style="margin:8px 0 10px">Напиши мне ♡</h2><p class="muted small">${esc(st.contact_text)}</p>
-  ${st.contact_username?`<button class="btn" data-act="tg-contact">💬 Написать в Telegram</button>`:""}
-  ${st.contact_phone?`<a class="btn ghost" style="margin-top:10px;text-decoration:none" href="tel:${esc(st.contact_phone.replace(/[^\d+]/g,""))}">📱 ${esc(st.contact_phone)}</a>`:""}
-  <button class="btn ghost" style="margin-top:10px" data-act="close-app">✍️ Написать в чате бота</button>`);
+function startMarquee(){
+  clearInterval(marqueeTimer);let k=0;
+  const tick=()=>{const spans=document.querySelectorAll("#run span");if(!spans.length)return clearInterval(marqueeTimer);
+    spans.forEach(s=>{const w=+s.dataset.w;s.className=w===k%WORDS.length?"hl":w===(k+3)%WORDS.length?"hl2":""});k++};
+  tick();marqueeTimer=setInterval(tick,1400);
 }
+async function loadPf(sec){
+  S.pf.s=sec;S.pf.loading=true;S.pf.items=[];if(S.tab==="home")patchWorks();
+  try{S.pf.items=(await api(`/api/portfolio?s=${sec}`)).items}catch(e){S.pf.items=[]}
+  S.pf.loading=false;if(S.tab==="home")patchWorks();
+}
+function patchWorks(){const w=$("#works");if(w)w.innerHTML=worksHtml();document.querySelectorAll("[data-pf]").forEach(b=>b.className="chip "+(b.dataset.pf===S.pf.s?"on":"ghost"))}
 
-/* ---------- прайс ---------- */
-function svcCard(s,i){
+/* ---------- услуги ---------- */
+function svcRow(s){
   const fav=S.boot.favorites.includes(s.id);
-  return `<div class="card svc"><div class="${s.photo?"ph":"swatch"}">${s.photo?`<img src="${s.photo}" loading="lazy" alt="">`:nailSvg(i)}</div>
-   <div class="body"><div class="ttl">${esc(s.title)}</div><div class="dsc">${esc(s.description)}</div>
-   <div class="row"><div><span class="price">${rub(s.price,s.price_from)}</span><span class="dur">⏳ ${dur(s.duration)}</span></div>
-   <div style="display:flex;gap:6px"><button class="heart ${fav?"on":""}" data-fav="${s.id}" aria-label="В избранное">${fav?"♥":"♡"}</button>
-   <button class="btn sm" data-booksvc="${s.id}">Записаться</button></div></div></div></div>`;
+  return `<div class="row"><button class="pic" data-svc="${s.id}" aria-label="Подробнее">${picHtml(s)}</button>
+   <button class="body" style="text-align:left" data-svc="${s.id}"><span class="t">${esc(s.title)}</span><span class="s">${dur(s.duration)}</span><span class="p">${rub(s.price,s.price_from)}</span></button>
+   <button class="heart ${fav?"on":""}" data-fav="${s.id}" aria-label="В избранное">${fav?"♥":"♡"}</button>
+   <button class="plus" data-booksvc="${s.id}" aria-label="Записаться">+</button></div>`;
 }
-function vPrices(){
+function svcList(){
+  let list=S.boot.services;
+  if(S.cat==="_fav")list=list.filter(s=>S.boot.favorites.includes(s.id));
+  else if(S.cat)list=list.filter(s=>s.category===S.cat);
+  const q=S.q.trim().toLowerCase();
+  if(q)list=list.filter(s=>(s.title+" "+s.description).toLowerCase().includes(q));
+  return list.map(svcRow).join("")||`<div class="card empty">Ничего не нашлось. Попробуй другое слово</div>`;
+}
+function vServices(){
   const cats=S.boot.categories.filter(c=>S.boot.services.some(s=>s.category===c.id));
-  if(!S.cat||!cats.find(c=>c.id===S.cat))S.cat=cats[0]?.id;
-  const c=cats.find(x=>x.id===S.cat), list=S.boot.services.filter(s=>s.category===S.cat);
-  const favs=S.boot.services.filter(s=>S.boot.favorites.includes(s.id));
-  return `<div class="view">${header("Прайс-лист","Услуги <span style='color:var(--gold)'>&</span> цены")}
-  <div class="chips">${cats.map(x=>`<button class="chip ${x.id===S.cat?"on":""}" data-cat="${x.id}">${x.emoji} ${esc(x.title)}</button>`).join("")}
-  ${favs.length?`<button class="chip ${S.cat==="_fav"?"on":""}" data-cat="_fav">♡ Избранное</button>`:""}</div>
-  ${c?`<div class="catbanner"><img src="${c.image}" alt=""></div>`:""}
-  <div class="stagger">${(S.cat==="_fav"?favs:list).map(svcCard).join("")}</div></div>`;
+  return `<div class="view"><h1 class="h1" style="margin-top:10px">Услуги</h1>
+  <label class="search" style="margin-top:0">${searchIcon}<input id="q2" type="search" value="${esc(S.q)}" placeholder="Услуга, дизайн или цвет" autocomplete="off"></label>
+  <div class="chips" style="margin-bottom:14px"><button class="chip ${!S.cat?"on":""}" data-filter="">Все</button>
+   ${cats.map(c=>`<button class="chip ${S.cat===c.id?"on":""}" data-filter="${c.id}">${esc(c.title)}</button>`).join("")}
+   ${S.boot.favorites.length?`<button class="chip ${S.cat==="_fav"?"on":""}" data-filter="_fav">♥ Избранное</button>`:""}</div>
+  <div id="svcList">${svcList()}</div></div>`;
+}
+function showService(id){
+  const s=S.boot.services.find(x=>x.id===id);if(!s)return;
+  const r=store.get("recent",[]).filter(x=>x!==id);r.unshift(id);store.set("recent",r.slice(0,8));
+  const fav=S.boot.favorites.includes(id);
+  sheet(`<div style="border-radius:22px;overflow:hidden;height:210px;margin-bottom:16px">${s.photo?`<img src="${s.photo}" alt="" style="width:100%;height:100%;object-fit:cover">`:`<div style="height:100%;display:grid;place-items:center;background:${lookOf(s.category).bg}">${lookOf(s.category).art}</div>`}</div>
+   <h2 class="h2" style="font-size:24px;margin-bottom:8px">${esc(s.title)}</h2>
+   <p class="muted" style="margin:0 0 16px">${esc(s.description)}</p>
+   <div style="display:flex;gap:8px;margin-bottom:18px"><span class="chip" style="display:inline-flex;align-items:center">${rub(s.price,s.price_from)}</span><span class="chip ghost" style="display:inline-flex;align-items:center">${dur(s.duration)}</span></div>
+   <div style="display:flex;gap:8px"><button class="btn" data-booksvc="${s.id}">Записаться</button><button class="heart ${fav?"on":""}" style="width:56px;height:56px;border-radius:18px" data-fav="${s.id}" aria-label="В избранное">${fav?"♥":"♡"}</button></div>`);
 }
 
 /* ---------- запись ---------- */
-function newBooking(extra={}){S.b={step:0,group:null,svc:null,ym:null,month:null,date:null,time:null,slots:null,
-  name:S.boot.user.name||"",phone:S.boot.user.phone||"",comment:"",resched:null,done:null,err:null,...extra}}
-const GROUPS=[["mani","💅","Маникюр"],["pedi","🦶","Педикюр"],["combo","🎀","Комплекс"],["extra","✨","Доп. услуги"]];
-function stepsBar(n){const total=S.b.resched?2:5;const cur=S.b.resched?Math.max(0,n-2):n;return `<div class="steps">${Array.from({length:total},(_,i)=>`<i class="${i<=cur?"on":""}"></i>`).join("")}</div>`}
-function svcSummary(){const s=S.b.svc;return `<div class="card summary"><div><div style="font-weight:600">${esc(s.title)}</div><div class="small muted">${dur(s.duration)}${S.b.date?` · ${hdate(S.b.date,false)}`:""}${S.b.time?` в ${S.b.time}`:""}</div></div><div class="price">${rub(s.price,s.price_from)}</div></div>`}
+function newBooking(extra={}){S.b={step:0,svc:null,ym:null,month:null,date:null,time:null,slots:null,name:S.boot.user.name||"",phone:S.boot.user.phone||"",comment:"",resched:null,done:null,err:null,...extra}}
+function stepsBar(n){const total=S.b.resched?1:4;const cur=S.b.resched?0:n;return `<div class="steps">${Array.from({length:total},(_,i)=>`<i class="${i<=cur?"on":""}"></i>`).join("")}</div>`}
+function bookTop(title){return `<div class="top">${S.b.step>0||S.b.resched?`<button class="back" data-act="b-back" aria-label="Назад">‹</button>`:""}<h1 class="h1" style="margin:0">${title}</h1></div>`}
+function svcSum(){const s=S.b.svc;return `<div class="card sum"><span class="pic">${picHtml(s)}</span><div style="flex:1;min-width:0"><div style="font-weight:700">${esc(s.title)}</div><div class="small muted">${dur(s.duration)}${S.b.date?` · ${hdate(S.b.date,false)}`:""}${S.b.time?` в ${S.b.time}`:""}</div></div><div style="font-weight:800;white-space:nowrap">${rub(s.price,s.price_from)}</div></div>`}
 function vBook(){
   if(!S.b)newBooking();
   const b=S.b;
   if(b.done)return vDone();
-  const back=b.step>0&&!(b.resched&&b.step<=2)?`<button class="nav" data-act="b-back" aria-label="Назад">‹</button>`:"";
-  let body="";
   if(b.step===0){
-    body=`${header(b.resched?"Перенос записи":"Запись · шаг 1","Выбери <span style='color:var(--gold)'>услугу</span>")}${stepsBar(0)}
-    <div class="chips" style="margin-bottom:14px">${GROUPS.map(([g,e,t])=>`<button class="chip ${b.group===g?"on":""}" data-group="${g}">${e} ${t}</button>`).join("")}</div>
-    <div class="stagger">${S.boot.services.filter(s=>{const c=S.boot.categories.find(c=>c.id===s.category);return c&&c.group===(b.group||"mani")})
-      .map(s=>`<button class="card pick" data-pick="${s.id}"><div><div class="t">${esc(s.title)}</div><div class="s">⏳ ${dur(s.duration)}</div></div><div class="p">${rub(s.price,s.price_from)}</div></button>`).join("")||`<div class="card empty">Скоро здесь появятся услуги ♡</div>`}</div>`;
-  } else if(b.step===1||b.step===2){
-    const m=b.month;
-    body=`<div class="top"><div><div class="eyebrow">${b.resched?"Перенос записи":"Запись · шаг 2"}</div><h1 class="h1">Дата <span style='color:var(--gold)'>&</span> время</h1></div>${back||'<div class="mono">'+esc((S.boot.studio.master||"B")[0])+'</div>'}</div>
-    ${stepsBar(b.step)}${svcSummary()}
-    <div class="card cal">${m?calendarHtml(m):'<div class="skel" style="height:300px"></div>'}</div>
+    const cats=S.boot.categories.filter(c=>S.boot.services.some(s=>s.category===c.id));
+    return `<div class="view">${bookTop("Запись")}${stepsBar(0)}<p class="muted" style="margin:-6px 0 4px">Выбери процедуру</p>
+    ${cats.map(c=>`<div class="sec" style="margin:18px 0 10px"><h2 class="h2" style="font-size:16px">${esc(c.title)}</h2></div>${S.boot.services.filter(s=>s.category===c.id).map(s=>`<button class="row" data-pick="${s.id}"><span class="pic">${picHtml(s)}</span><span class="body"><span class="t">${esc(s.title)}</span><span class="s">${dur(s.duration)}</span></span><span style="font-weight:800;white-space:nowrap">${rub(s.price,s.price_from)}</span></button>`).join("")}`).join("")}</div>`;
+  }
+  if(b.step===1||b.step===2){
+    return `<div class="view">${bookTop(b.resched?"Перенос":"Дата и время")}${stepsBar(1)}${svcSum()}
+    <div class="card cal">${b.month?calHtml(b.month):'<div class="skel" style="height:290px;margin:0"></div>'}</div>
     <div id="times">${timesHtml()}</div>
-    ${b.time?`<div style="margin-top:18px"><button class="btn" data-act="b-next">${b.resched?"Перенести запись":"Дальше"}</button></div>`:""}`;
-  } else if(b.step===3){
-    body=`<div class="top"><div><div class="eyebrow">Запись · шаг 3</div><h1 class="h1">Твои <span style='color:var(--gold)'>контакты</span></h1></div>${back}</div>${stepsBar(3)}${svcSummary()}
+    ${b.time?`<div style="margin-top:18px"><button class="btn" data-act="b-next">${b.resched?"Перенести запись":"Дальше"}</button></div>`:""}</div>`;
+  }
+  if(b.step===3){
+    return `<div class="view">${bookTop("Контакты")}${stepsBar(2)}${svcSum()}
     <label class="field"><span>Имя</span><input id="fName" value="${esc(b.name)}" placeholder="Как к тебе обращаться" autocomplete="given-name" maxlength="40"></label>
     <label class="field"><span>Телефон</span><input id="fPhone" value="${esc(b.phone)}" placeholder="+7 900 123-45-67" inputmode="tel" autocomplete="tel"></label>
-    <label class="field"><span>Комментарий · необязательно</span><textarea id="fComment" rows="3" placeholder="Пожелания по дизайну, длине, форме…" maxlength="500">${esc(b.comment)}</textarea></label>
+    <label class="field"><span>Комментарий</span><textarea id="fComment" rows="3" placeholder="Пожелания по дизайну, длине, форме" maxlength="500">${esc(b.comment)}</textarea></label>
     ${b.err?`<div class="err">${esc(b.err)}</div>`:""}
-    <button class="btn" data-act="b-contacts">Дальше</button>`;
-  } else if(b.step===4){
-    body=`<div class="top"><div><div class="eyebrow">Запись · шаг 4</div><h1 class="h1">Проверь <span style='color:var(--gold)'>запись</span></h1></div>${back}</div>${stepsBar(4)}
-    <div class="card ticket">${ticketHtml({service_title:b.svc.title,date:b.date,start:b.date+" "+b.time,price:b.svc.price,price_from:b.svc.price_from})}
-    <div class="tl"><span class="k">👤 Имя</span><span class="v">${esc(b.name)}</span></div><div class="tl"><span class="k">📱 Телефон</span><span class="v">${esc(b.phone)}</span></div>
-    ${b.comment?`<div class="tl"><span class="k">💬</span><span class="v" style="font-weight:500">${esc(b.comment)}</span></div>`:""}</div>
-    <div style="margin-top:18px"><button class="btn" data-act="b-submit">💗 Подтвердить запись</button></div>`;
+    <button class="btn" data-act="b-contacts">Дальше</button></div>`;
   }
-  return `<div class="view">${body}</div>`;
+  return `<div class="view">${bookTop("Проверь")}${stepsBar(3)}
+    <div class="card ticket">${ticketHtml({service_title:b.svc.title,date:b.date,start:b.date+" "+b.time,price:b.svc.price,price_from:b.svc.price_from})}
+    <div class="tl"><span class="k">Имя</span><span class="v">${esc(b.name)}</span></div><div class="tl"><span class="k">Телефон</span><span class="v">${esc(b.phone)}</span></div>
+    ${b.comment?`<div class="tl"><span class="k">Комментарий</span><span class="v" style="font-weight:500">${esc(b.comment)}</span></div>`:""}</div>
+    <div style="margin-top:18px"><button class="btn" data-act="b-submit">Записаться</button></div></div>`;
 }
-function ticketHtml(x){return `<div class="tl"><span class="k">🎀 Услуга</span><span class="v">${esc(x.service_title)}</span></div>
- <div class="tl"><span class="k">📅 Дата</span><span class="v">${hdate(x.date)}</span></div>
- <div class="tl"><span class="k">⏰ Время</span><span class="v">${esc(x.start.slice(11,16))}</span></div>
- <div class="tl"><span class="k">💗 Стоимость</span><span class="v">${rub(x.price,x.price_from)}</span></div>
- <div class="tl"><span class="k">📍 Адрес</span><span class="v">${esc(S.boot.studio.address)}</span></div>`}
-function calendarHtml(m){
-  const [y,mo]=m.ym.split("-").map(Number);
-  const first=new Date(y,mo-1,1), days=new Date(y,mo,0).getDate(), pad=(first.getDay()+6)%7;
-  let cells="";for(let i=0;i<pad;i++)cells+="<span></span>";
-  for(let d=1;d<=days;d++){const st=m.days[d]||"past";const iso=`${m.ym}-${String(d).padStart(2,"0")}`;
-    cells+=`<button class="day ${st} ${S.b.date===iso?"sel":""}" ${st==="free"?`data-day="${iso}"`:"disabled"}>${d}</button>`}
-  return `<div class="cal-h"><button class="nav" data-month="-1" ${m.ym<=m.min?"disabled":""}>‹</button><div class="m">${MONTHS_N[mo-1]} ${y}</div><button class="nav" data-month="1" ${m.ym>=m.max?"disabled":""}>›</button></div>
-  <div class="grid7">${["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].map(w=>`<div class="wd">${w}</div>`).join("")}${cells}</div>
-  <div class="legend"><span class="lg-f">есть окошки</span><span class="lg-b">занято</span><span class="lg-o">выходной</span></div>`;
+function ticketHtml(x){return `<div class="tl"><span class="k">Услуга</span><span class="v">${esc(x.service_title)}</span></div>
+ <div class="tl"><span class="k">Дата</span><span class="v">${hdate(x.date)}</span></div>
+ <div class="tl"><span class="k">Время</span><span class="v">${esc(x.start.slice(11,16))}</span></div>
+ <div class="tl"><span class="k">Стоимость</span><span class="v">${rub(x.price,x.price_from)}</span></div>
+ <div class="tl"><span class="k">Адрес</span><span class="v">${esc(S.boot.studio.address)}</span></div>`}
+function calHtml(m){
+  const [y,mo]=m.ym.split("-").map(Number),first=new Date(y,mo-1,1),days=new Date(y,mo,0).getDate(),padn=(first.getDay()+6)%7;
+  let cells="";for(let i=0;i<padn;i++)cells+="<span></span>";
+  for(let d=1;d<=days;d++){const st=m.days[d]||"past",iso=`${m.ym}-${pad(d)}`;
+    cells+=`<button class="day ${st} ${S.b.date===iso?"sel":""}" ${st==="free"?`data-day="${iso}"`:"disabled"} aria-label="${d}">${d}</button>`}
+  return `<div class="cal-h"><button class="nav" data-month="-1" ${m.ym<=m.min?"disabled":""} aria-label="Предыдущий месяц">‹</button><b>${MONTHS_N[mo-1]} ${y}</b><button class="nav" data-month="1" ${m.ym>=m.max?"disabled":""} aria-label="Следующий месяц">›</button></div>
+  <div class="g7">${["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].map(w=>`<div class="wd">${w}</div>`).join("")}${cells}</div>
+  <div class="legend"><span><i style="background:var(--accent)"></i>есть окна</span><span><i style="background:var(--card-2)"></i>занято</span><span><i style="box-shadow:inset 0 0 0 1px var(--faint)"></i>выходной</span></div>`;
 }
 function timesHtml(){
-  const b=S.b;if(!b.date)return `<p class="small muted" style="text-align:center;margin-top:14px">Выбери день с золотой точкой — там есть свободные окошки ♡</p>`;
+  const b=S.b;if(!b.date)return `<p class="small muted" style="text-align:center;margin-top:14px">Дни с синей точкой — там есть свободные окна</p>`;
   if(!b.slots)return '<div class="skel" style="height:110px;margin-top:14px"></div>';
-  if(!b.slots.length)return `<div class="card empty" style="margin-top:14px">В этот день окошек уже нет 🥺</div>`;
-  return `<div class="rule" style="margin:20px 0 4px"><span class="eyebrow">${hdate(b.date)}</span></div><div class="times">${b.slots.map(t=>`<button class="time ${b.time===t?"on":""}" data-time="${t}">${t}</button>`).join("")}</div>`;
+  if(!b.slots.length)return `<div class="card empty" style="margin-top:14px">В этот день окон уже нет</div>`;
+  return `<div class="sec" style="margin:20px 0 0"><h2 class="h2" style="font-size:16px">${hdate(b.date)}</h2></div><div class="times">${b.slots.map(t=>`<button class="time ${b.time===t?"on":""}" data-time="${t}">${t}</button>`).join("")}</div>`;
 }
 function vDone(){
   const d=S.b.done;
-  return `<div class="view" style="text-align:center;position:relative">
-  <span class="spark" style="left:12%;top:40px;animation-delay:.2s">✦</span><span class="spark" style="right:14%;top:90px;animation-delay:.9s">✦</span><span class="spark" style="left:22%;top:170px;animation-delay:1.4s">✧</span>
-  <svg class="done-ic" viewBox="0 0 92 92" fill="none"><circle cx="46" cy="46" r="44" stroke="#e8d5b5"/><path d="M28 47l12 12 24-26" stroke="#b8975a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  <div class="eyebrow">${S.b.resched?"Запись перенесена":"Запись создана"}</div>
-  <h1 class="h1" style="margin-bottom:6px">${S.b.resched?"Новое время ♡":"Твоя запись успешно создана! ♡"}</h1>
-  <div class="card ticket" style="text-align:left;margin-top:18px">${ticketHtml(d)}</div>
-  <p class="lead" style="text-align:center">Буду с нетерпением ждать нашей встречи!${d.status==="pending"?"<br><span class='small'>Мастер подтвердит запись — придёт уведомление в чат 🤍</span>":""}</p>
-  <div style="display:grid;gap:10px;margin-top:18px"><button class="btn" data-tab="my">📒 Мои записи</button><button class="btn ghost" data-act="b-again">На главную</button></div></div>`;
+  return `<div class="view done"><div class="big"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+  <h1 class="h1" style="text-align:center">${S.b.resched?"Запись перенесена":"Ты записана!"}</h1>
+  <p class="muted" style="margin:-4px 0 18px">${d.status==="pending"?"Мастер подтвердит запись — уведомление придёт в чат":"Жду тебя ♡"}</p>
+  <div class="card ticket" style="text-align:left">${ticketHtml(d)}</div>
+  <div style="display:grid;gap:10px;margin-top:18px"><button class="btn" data-tab="me">Мои записи</button><button class="btn ghost" data-act="b-again">На главную</button></div></div>`;
 }
+const shiftYm=(ym,d)=>{let [y,m]=ym.split("-").map(Number);m+=d;if(m>12){m=1;y++}if(m<1){m=12;y--}return `${y}-${pad(m)}`};
 async function loadMonth(ym){
   const b=S.b,q=b.resched?`resched=${b.resched}`:`service=${b.svc.id}`;
-  if(!ym){const n=new Date();ym=`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,"0")}`}
+  if(!ym){const n=new Date();ym=`${n.getFullYear()}-${pad(n.getMonth()+1)}`}
   b.month=null;render();
-  try{const r=await api(`/api/month?${q}&ym=${ym}`);
-    b.month={ym,days:r.days,min:r.min,max:r.max};
-    if(!b.ym&&!Object.values(r.days).includes("free")&&ym<r.max){b.ym=ym;return loadMonth(shiftYm(ym,1))}
-    b.ym=ym;
-  }catch(e){toast("Не удалось загрузить календарь")}
+  try{const r=await api(`/api/month?${q}&ym=${ym}`);b.month={ym,days:r.days,min:r.min,max:r.max};
+    if(!b.ym&&!Object.values(r.days).includes("free")&&ym<r.max){b.ym=ym;return loadMonth(shiftYm(ym,1))}b.ym=ym}catch(e){toast("Не удалось загрузить календарь")}
   render();
 }
-const shiftYm=(ym,d)=>{let [y,m]=ym.split("-").map(Number);m+=d;if(m>12){m=1;y++}if(m<1){m=12;y--}return `${y}-${String(m).padStart(2,"0")}`};
 async function loadSlots(){
-  const b=S.b,q=b.resched?`resched=${b.resched}`:`service=${b.svc.id}`;b.slots=null;$("#times").innerHTML=timesHtml();
+  const b=S.b,q=b.resched?`resched=${b.resched}`:`service=${b.svc.id}`;b.slots=null;const t=$("#times");if(t)t.innerHTML=timesHtml();
   try{b.slots=(await api(`/api/slots?${q}&date=${b.date}`)).slots}catch(e){b.slots=[]}
-  render();setTimeout(()=>$("#times")&&$("#times").scrollIntoView({behavior:"smooth",block:"center"}),60);
+  render();setTimeout(()=>{const t=$("#times");t&&t.scrollIntoView({behavior:"smooth",block:"center"})},60);
 }
-function pickService(id){const s=S.boot.services.find(x=>x.id===id);if(!s)return;newBooking({svc:s,step:1});S.tab="book";renderTabs();render();loadMonth()}
+async function pickService(id,extra={}){
+  const s=S.boot.services.find(x=>x.id===id);if(!s)return;closeSheet();
+  newBooking({svc:s,step:1,...extra});S.tab="book";renderDock();render();window.scrollTo({top:0});
+  if(!extra.date)return loadMonth();
+  const ym=extra.date.slice(0,7);S.b.ym=ym;
+  try{const r=await api(`/api/month?service=${s.id}&ym=${ym}`);S.b.month={ym,days:r.days,min:r.min,max:r.max}}catch(e){}
+  if(extra.time)S.b.step=2;
+  await loadSlots();
+}
 async function submit(){
-  const b=S.b;const btn=document.querySelector('[data-act="b-submit"],[data-act="b-next"]');btn&&(btn.disabled=true);
+  const b=S.b,btn=document.querySelector('[data-act="b-submit"],[data-act="b-next"]');btn&&(btn.disabled=true);
   try{
-    let r;
-    if(b.resched)r=await api("/api/reschedule",{id:b.resched,date:b.date,time:b.time});
-    else r=await api("/api/book",{service:b.svc.id,date:b.date,time:b.time,name:b.name,phone:b.phone,comment:b.comment});
-    b.done=r.booking;S.my=null;haptic("medium");try{tg.HapticFeedback&&tg.HapticFeedback.notificationOccurred("success")}catch(e){}
-    S.boot.user.name=b.name;S.boot.user.phone=b.phone;render();window.scrollTo({top:0});
+    const r=b.resched?await api("/api/reschedule",{id:b.resched,date:b.date,time:b.time}):await api("/api/book",{service:b.svc.id,date:b.date,time:b.time,name:b.name,phone:b.phone,comment:b.comment});
+    b.done=r.booking;S.my=null;S.boot.user.name=b.name;S.boot.user.phone=b.phone;haptic("medium");try{tg.HapticFeedback&&tg.HapticFeedback.notificationOccurred("success")}catch(e){}
+    renderDock();render();window.scrollTo({top:0});
   }catch(e){
     btn&&(btn.disabled=false);
     if(e.message==="subscribe")return showSubscribe(e.data.channel_url);
-    if(e.message==="slot_taken"){toast("Ой! Это время только что заняли 🥺");b.step=2;b.time=null;loadSlots();return}
-    if(e.message==="phone"){b.step=3;b.err="Проверь, пожалуйста, номер телефона";render();return}
-    if(e.message==="too_late"){toast("До визита слишком мало времени — напиши мастеру");return}
-    toast("Что-то пошло не так, попробуй ещё раз");
+    if(e.message==="slot_taken"){toast("Это время только что заняли, выбери другое");b.step=2;b.time=null;loadSlots();return}
+    if(e.message==="phone"){b.step=3;b.err="Проверь номер телефона";render();return}
+    if(e.message==="too_late"){toast("До визита мало времени — напиши мастеру");return}
+    toast("Не получилось, попробуй ещё раз");
   }
 }
 function showSubscribe(url){
-  sheet(`<div class="eyebrow">Маленькая просьба</div><h2 class="h2" style="margin:8px 0 10px">Перед записью ♡</h2>
-  <p class="muted">Подпишись на мой Telegram-канал, чтобы не пропускать свободные окошки, красивые работы, новости и специальные предложения. После подписки ты сможешь перейти к записи 💗</p>
-  ${url?`<button class="btn" data-act="sub-open" data-url="${esc(url)}">🤍 Подписаться на канал</button>`:""}
-  <button class="btn ghost" style="margin-top:10px" data-act="sub-check">✨ Я подписалась</button>`);
+  sheet(`<h2 class="h2" style="font-size:24px;margin:4px 40px 10px 0">Маленькая просьба перед записью ♡</h2>
+  <p class="muted" style="margin:0 0 18px">Подпишись на мой Telegram-канал, чтобы не пропускать свободные окошки, работы, новости и специальные предложения. После подписки ты сможешь записаться.</p>
+  ${url?`<button class="btn" data-act="sub-open" data-url="${esc(url)}">Подписаться на канал</button>`:""}
+  <button class="btn ghost" style="margin-top:10px" data-act="sub-check">Я подписалась</button>`);
+}
+const defaultSvc=()=>S.boot.services.find(s=>s.category==="mani")||S.boot.services[0];
+async function quickSlots(dayOffset){
+  const svc=defaultSvc();if(!svc)return;
+  const d=new Date();d.setDate(d.getDate()+dayOffset);const iso=isoOf(d);
+  sheet(`<h2 class="h2" style="font-size:22px;margin:4px 40px 6px 0">${dayOffset?"Завтра":"Сегодня"}, ${hdate(iso,false)}</h2><p class="muted small" style="margin:0 0 14px">${esc(svc.title)} · ${dur(svc.duration)}</p><div id="qs"><div class="skel"></div></div>`);
+  let slots=[];try{slots=(await api(`/api/slots?service=${svc.id}&date=${iso}`)).slots}catch(e){}
+  const el=$("#qs");if(!el)return;
+  el.innerHTML=slots.length?`<div class="times" style="margin:0">${slots.map(t=>`<button class="time" data-quick="${svc.id}|${iso}|${t}">${t}</button>`).join("")}</div><p class="small muted" style="margin:14px 0 0">Время для «${esc(svc.title)}». Для другой услуги выбери её во вкладке «Запись».</p>`
+    :`<div class="card empty">Свободных окон нет</div><button class="btn ghost" style="margin-top:10px" data-act="nearest">Найти ближайшее</button>`;
+}
+async function nearest(){
+  const svc=defaultSvc();
+  sheet(`<h2 class="h2" style="font-size:22px;margin:4px 40px 6px 0">Ближайшие окна</h2><p class="muted small" style="margin:0 0 8px">${esc(svc.title)}</p><div id="qs"><div class="skel"></div></div>`);
+  const found=[];const d=new Date();
+  for(let i=0;i<21&&found.length<6;i++){const iso=isoOf(d);try{(await api(`/api/slots?service=${svc.id}&date=${iso}`)).slots.slice(0,6-found.length).forEach(t=>found.push([iso,t]))}catch(e){}d.setDate(d.getDate()+1)}
+  const el=$("#qs");if(!el)return;
+  el.innerHTML=found.length?found.map(([iso,t])=>`<button class="opt" data-quick="${svc.id}|${iso}|${t}"><span>${hdate(iso)}</span><b>${t}</b></button>`).join(""):`<div class="card empty">Окон пока нет</div>`;
+}
+const QUIZ=[
+  {q:"Что хочется сделать?",a:[["Маникюр","mani"],["Педикюр","pedi"],["Нарастить длину","ext"],["Всё сразу","combo"]]},
+  {q:"Покрытие нужно?",a:[["Да, цвет или дизайн","cover"],["Нет, только уход","bare"]]},
+  {q:"Когда удобно?",a:[["Сегодня","0"],["Завтра","1"],["Когда угодно","any"]]}
+];
+function quiz(step=0,ans=[]){
+  if(step>=QUIZ.length){
+    const [what,cover,when]=ans;let list=S.boot.services.filter(s=>s.category===what);
+    if(what==="mani"||what==="pedi"){const f=list.filter(s=>cover==="bare"?/без покрытия/i.test(s.title):/с покрытием|укрепление/i.test(s.title));if(f.length)list=f}
+    const s=list[0]||S.boot.services[0];
+    sheet(`<p class="muted small" style="margin:4px 0 6px">Подобрала для тебя</p><h2 class="h2" style="font-size:24px;margin:0 40px 14px 0">${esc(s.title)}</h2>
+      <div class="row" style="background:var(--card-2);margin-bottom:16px"><span class="pic">${picHtml(s)}</span><span class="body"><span class="t">${rub(s.price,s.price_from)}</span><span class="s">${dur(s.duration)}</span></span></div>
+      <button class="btn" data-quizgo="${s.id}|${when}">${when==="any"?"Выбрать время":"Показать окна"}</button>`);return;
+  }
+  const Q=QUIZ[step];
+  sheet(`<p class="muted small" style="margin:4px 0 6px">Вопрос ${step+1} из ${QUIZ.length}</p><h2 class="h2" style="font-size:24px;margin:0 40px 16px 0">${Q.q}</h2>
+   ${Q.a.map(([t,v])=>`<button class="quiz-opt" data-quiz="${step+1}|${[...ans,v].join(",")}">${t}</button>`).join("")}`);
 }
 
-/* ---------- портфолио ---------- */
-function vPortfolio(){
-  const secs=S.boot.portfolio,cur=secs.find(s=>s.id===S.pf.s)||secs[0];
-  const items=S.pf.items;
-  return `<div class="view">${header("Портфолио","Мои <span style='color:var(--gold)'>работы</span>")}
-  <div class="chips">${secs.map(s=>`<button class="chip ${s.id===cur.id?"on":""}" data-pf="${s.id}">${s.emoji} ${esc(s.title)}${s.count?` · ${s.count}`:""}</button>`).join("")}</div>
-  ${S.pf.loading?'<div class="masonry"><div class="skel" style="height:200px"></div><div class="skel" style="height:140px"></div><div class="skel" style="height:160px"></div><div class="skel" style="height:220px"></div></div>'
-   :items.length?`<div class="masonry">${items.map((it,i)=>`<button class="tile" style="animation-delay:${Math.min(i,10)*.05}s" data-open="${i}"><img src="${it.src}" loading="lazy" alt=""></button>`).join("")}</div>`
-   :`<div class="hero" style="margin-top:14px;aspect-ratio:16/10"><img src="${cur.image}" alt=""></div><p class="lead" style="text-align:center">Совсем скоро здесь появятся работы ♡</p>`}
-  <div style="margin-top:16px"><button class="btn" data-tab="book">🎀 Хочу так же</button></div></div>`;
+/* ---------- профиль ---------- */
+function vMe(){
+  const u=S.boot.user;
+  if(!S.my)api("/api/my").then(r=>{S.my=r;if(S.tab==="me")render()}).catch(()=>toast("Не удалось загрузить записи"));
+  const head=`<div class="me"><div class="ava">${esc((u.name||"Я")[0].toUpperCase())}</div><div><div class="h2">${esc(u.name||"Гостья")}</div><div class="small muted">${esc(u.phone||"телефон появится после записи")}</div></div></div>`;
+  if(!S.my)return `<div class="view">${head}<div class="skel"></div><div class="skel"></div></div>`;
+  const {active,history}=S.my, favs=S.boot.services.filter(s=>S.boot.favorites.includes(s.id));
+  const done=history.filter(b=>b.status==="done").length;
+  return `<div class="view">${head}
+  <div class="sec"><h2 class="h2">Мои записи</h2></div>
+  ${active.length?active.map(b=>`<div class="card bk"><span class="badge ${STATUS[b.status][0]}">● ${STATUS[b.status][1]}</span>
+    <div class="when">${hdate(b.date,false)}, ${b.start.slice(11,16)}</div><div class="muted">${esc(b.service_title)} · ${rub(b.price,b.price_from)}</div>
+    <div class="acts"><button class="btn sm" style="flex:1" data-resched="${b.id}">Перенести</button><button class="btn sm ghost" style="flex:1" data-cancel="${b.id}">Отменить</button></div></div>`).join("")
+   :`<div class="card empty"><b style="color:var(--text);font-size:17px">Пока нет записей</b><p class="small" style="margin:6px 0 14px">Самое время побаловать себя</p><button class="btn" data-tab="book">Записаться</button></div>`}
+  ${favs.length?`<div class="sec"><h2 class="h2">Избранное</h2></div>${favs.map(svcRow).join("")}`:""}
+  ${history.length?`<div class="sec"><h2 class="h2">История</h2><span class="link">${done} ${plural(done,"визит","визита","визитов")}</span></div>
+   <div class="card" style="padding:2px 16px">${history.slice(0,15).map(b=>`<div class="hist"><div><div style="font-weight:700">${esc(b.service_title)}</div><div class="small muted">${hdate(b.date,false)} · ${STATUS[b.status][1]}</div></div>
+   ${b.status==="done"&&S.boot.services.find(s=>s.id===b.service_id)?`<button class="btn sm ghost" data-booksvc="${b.service_id}">Повторить</button>`:""}</div>`).join("")}</div>`:""}
+  ${u.is_admin?`<div class="sec"><h2 class="h2">Кабинет мастера</h2></div>${vAdmin()}`:""}
+  </div>`;
 }
-async function loadPf(sec){S.pf.s=sec;S.pf.loading=true;S.pf.items=[];render();
-  try{S.pf.items=(await api(`/api/portfolio?s=${sec}`)).items}catch(e){S.pf.items=[]}S.pf.loading=false;if(S.tab==="portfolio")render()}
+function vAdmin(){
+  if(!S.adm.data){loadAdmin();return '<div class="skel"></div>'}
+  const d=S.adm.data,today=new Date();
+  const strip=Array.from({length:14},(_,i)=>{const x=new Date(today);x.setDate(x.getDate()+i);const iso=isoOf(x);
+    return `<button class="chip ${iso===d.date?"on":""}" data-admday="${iso}">${i===0?"Сегодня":i===1?"Завтра":hdate(iso,false)}</button>`}).join("");
+  const row=b=>`<div class="card adm"><div style="display:flex;justify-content:space-between;gap:10px"><div style="min-width:0"><div style="font-weight:800">${b.start.slice(11,16)}–${b.end.slice(11,16)} · ${esc(b.name)}</div>
+    <div class="small muted">${esc(b.service_title)} · ${rub(b.price,b.price_from)}</div><div class="small muted">${esc(b.phone)}${b.comment?` · ${esc(b.comment)}`:""}</div></div>
+    <span class="badge ${STATUS[b.status][0]}" style="flex:none">${STATUS[b.status][1]}</span></div>
+    <div class="acts">${b.status==="pending"?`<button class="btn sm" data-adm="confirm:${b.id}">Подтвердить</button>`:""}
+    ${b.status==="confirmed"?`<button class="btn sm ghost" data-adm="done:${b.id}">Визит состоялся</button>`:""}
+    ${["pending","confirmed"].includes(b.status)?`<button class="btn sm danger" data-adm="cancel:${b.id}">Отменить</button>`:""}</div></div>`;
+  return `${d.pending.length?`<p class="small muted" style="margin:0 0 8px">Ждут подтверждения · ${d.pending.length}</p>${d.pending.map(b=>row({...b,name:b.name+" · "+hdate(b.date,false)})).join("")}`:""}
+   <div class="chips" style="margin:14px -16px 12px">${strip}</div>
+   ${d.items.length?d.items.map(row).join(""):`<div class="card empty">На ${hdate(d.date)} записей нет</div>`}
+   <p class="small muted" style="text-align:center;margin-top:14px">График, услуги, фото и рассылки — в чате бота по команде /admin</p>`;
+}
+async function loadAdmin(date){try{S.adm.data=await api("/api/admin/day"+(date?`?date=${date}`:""))}catch(e){S.adm.data={date:date||isoOf(new Date()),items:[],pending:[]}}if(S.tab==="me")render()}
 
-/* лайтбокс: свайп, pinch-zoom, двойной тап */
+/* ---------- лайтбокс: свайп, pinch-zoom, двойной тап ---------- */
 const LB={i:0,scale:1,x:0,y:0,pts:new Map(),start:null,lastTap:0};
-function lbOpen(i){LB.i=i;lbShow();$("#lb").classList.add("open");tg.BackButton&&(tg.BackButton.show(),tg.BackButton.onClick(lbClose))}
-function lbClose(){$("#lb").classList.remove("open");tg.BackButton&&(tg.BackButton.hide(),tg.BackButton.offClick(lbClose))}
-function lbShow(){const it=S.pf.items[LB.i];if(!it)return;LB.scale=1;LB.x=0;LB.y=0;const img=$("#lbImg");img.src=it.orig||it.src;lbApply();
-  $("#lbCap").textContent=it.caption||(S.boot.portfolio.find(s=>s.id===S.pf.s)||{}).title||"";$("#lbN").textContent=`${LB.i+1} / ${S.pf.items.length}`}
-function lbApply(anim){const img=$("#lbImg");img.style.transition=anim?"transform .3s cubic-bezier(.22,.8,.24,1)":"none";img.style.transform=`translate(calc(-50% + ${LB.x}px),calc(-50% + ${LB.y}px)) scale(${LB.scale})`}
+function lbOpen(i){LB.i=i;lbShow();$("#lb").classList.add("open")}
+function lbClose(){$("#lb").classList.remove("open")}
+function lbShow(){const it=S.pf.items[LB.i];if(!it)return;LB.scale=1;LB.x=0;LB.y=0;$("#lbImg").src=it.orig||it.src;lbApply();$("#lbCap").textContent=it.caption||"";$("#lbN").textContent=`${LB.i+1} / ${S.pf.items.length}`}
+function lbApply(anim){const img=$("#lbImg");img.style.transition=anim?"transform .3s cubic-bezier(.2,.8,.2,1)":"none";img.style.transform=`translate(calc(-50% + ${LB.x}px),calc(-50% + ${LB.y}px)) scale(${LB.scale})`}
 const stage=$("#stage");
 stage.addEventListener("pointerdown",e=>{stage.setPointerCapture(e.pointerId);LB.pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
-  if(LB.pts.size===1){LB.start={x:e.clientX,y:e.clientY,ox:LB.x,oy:LB.y,t:Date.now()}}
+  if(LB.pts.size===1)LB.start={x:e.clientX,y:e.clientY,ox:LB.x,oy:LB.y,t:Date.now()};
   if(LB.pts.size===2){const [a,b]=[...LB.pts.values()];LB.pinch={d:Math.hypot(a.x-b.x,a.y-b.y),s:LB.scale}}});
 stage.addEventListener("pointermove",e=>{if(!LB.pts.has(e.pointerId))return;LB.pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(LB.pts.size===2&&LB.pinch){const [a,b]=[...LB.pts.values()];LB.scale=Math.min(5,Math.max(1,LB.pinch.s*Math.hypot(a.x-b.x,a.y-b.y)/LB.pinch.d));lbApply()}
-  else if(LB.pts.size===1&&LB.start){const dx=e.clientX-LB.start.x,dy=e.clientY-LB.start.y;
-    if(LB.scale>1){LB.x=LB.start.ox+dx;LB.y=LB.start.oy+dy}else{LB.x=dx;LB.y=Math.abs(dy)>Math.abs(dx)?dy:0}lbApply()}});
+  else if(LB.pts.size===1&&LB.start){const dx=e.clientX-LB.start.x,dy=e.clientY-LB.start.y;if(LB.scale>1){LB.x=LB.start.ox+dx;LB.y=LB.start.oy+dy}else{LB.x=dx;LB.y=Math.abs(dy)>Math.abs(dx)?dy:0}lbApply()}});
 function lbEnd(e){LB.pts.delete(e.pointerId);if(LB.pts.size)return;LB.pinch=null;const s=LB.start;LB.start=null;if(!s)return;
   const dx=e.clientX-s.x,dy=e.clientY-s.y,now=Date.now();
   if(Math.abs(dx)<8&&Math.abs(dy)<8&&now-s.t<250){if(now-LB.lastTap<300){LB.scale=LB.scale>1?1:2.5;LB.x=0;LB.y=0;lbApply(true);LB.lastTap=0;return}LB.lastTap=now;return}
-  if(LB.scale>1){if(LB.scale<1.05){LB.scale=1;LB.x=LB.y=0;lbApply(true)}return}
+  if(LB.scale>1)return;
   const n=S.pf.items.length;
   if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)){LB.i=(LB.i+(dx<0?1:-1)+n)%n;haptic();lbShow();return}
   if(dy>110){lbClose();return}
   LB.x=0;LB.y=0;lbApply(true)}
 stage.addEventListener("pointerup",lbEnd);stage.addEventListener("pointercancel",lbEnd);
 
-/* ---------- мои записи ---------- */
-function vMy(){
-  if(!S.my){api("/api/my").then(r=>{S.my=r;if(S.tab==="my")render()}).catch(()=>toast("Не удалось загрузить записи"));
-    return `<div class="view">${header("Личный кабинет","Мои <span style='color:var(--gold)'>записи</span>")}<div class="skel"></div><div class="skel"></div></div>`}
-  const {active,history}=S.my;
-  const done=history.filter(b=>b.status==="done");
-  return `<div class="view">${header("Личный кабинет","Мои <span style='color:var(--gold)'>записи</span>")}
-  ${active.length?`<div class="stagger">${active.map(b=>`<div class="card bk"><span class="badge ${STATUS[b.status][0]}">● ${STATUS[b.status][1]}</span>
-    <div class="when">${hdate(b.date,false)}, ${b.start.slice(11,16)}</div><div class="muted">${esc(b.service_title)} · ${rub(b.price,b.price_from)}</div>
-    <div class="acts"><button class="btn soft sm" style="flex:1" data-resched="${b.id}">🔁 Перенести</button><button class="btn ghost sm" style="flex:1" data-cancel="${b.id}">Отменить</button></div></div>`).join("")}</div>`
-   :`<div class="card empty"><div class="h3" style="font-style:italic;font-weight:500;font-size:24px">Пока нет записей</div><p class="small">Самое время побаловать себя ♡</p><button class="btn" data-tab="book">🎀 Записаться</button></div>`}
-  ${history.length?`<div class="rule"><span class="eyebrow">История · ${done.length} визитов</span></div>
-   <div class="card" style="padding:4px 16px">${history.slice(0,15).map(b=>`<div class="hist"><div><div style="font-weight:600">${esc(b.service_title)}</div><div class="small muted">${hdate(b.date,false)} · ${STATUS[b.status][1]}</div></div>
-   ${b.status==="done"&&b.service_id&&S.boot.services.find(s=>s.id===b.service_id)?`<button class="btn ghost sm" data-booksvc="${b.service_id}">Повторить</button>`:""}</div>`).join("")}</div>`:""}
-  </div>`;
-}
-
-/* ---------- кабинет мастера ---------- */
-function vAdmin(){
-  if(!S.adm.data){loadAdmin();return `<div class="view">${header("Кабинет мастера","Записи")}<div class="skel"></div><div class="skel"></div></div>`}
-  const d=S.adm.data,today=new Date();
-  const strip=Array.from({length:14},(_,i)=>{const x=new Date(today);x.setDate(x.getDate()+i);const iso=`${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`;
-    return `<button class="chip ${iso===d.date?"on":""}" data-admday="${iso}">${i===0?"Сегодня":i===1?"Завтра":hdate(iso,false)}</button>`}).join("");
-  const row=b=>`<div class="card adm-row"><div style="display:flex;justify-content:space-between;gap:10px"><div><div style="font-weight:700">${b.start.slice(11,16)}–${b.end.slice(11,16)} · ${esc(b.name)}</div>
-    <div class="small muted">${esc(b.service_title)} · ${rub(b.price,b.price_from)}</div><div class="small muted">${esc(b.phone)}${b.comment?` · 💬 ${esc(b.comment)}`:""}</div></div>
-    <span class="badge ${STATUS[b.status][0]}" style="flex:none">${STATUS[b.status][1]}</span></div>
-    <div class="acts">${b.status==="pending"?`<button class="btn sm" data-adm="confirm:${b.id}">✅ Подтвердить</button>`:""}
-    ${b.status==="confirmed"?`<button class="btn soft sm" data-adm="done:${b.id}">✔️ Визит состоялся</button>`:""}
-    ${["pending","confirmed"].includes(b.status)?`<button class="btn ghost sm" data-adm="cancel:${b.id}">Отменить</button>`:""}</div></div>`;
-  return `<div class="view">${header("Кабинет мастера","Записи")}
-   ${d.pending.length?`<div class="rule" style="margin-top:6px"><span class="eyebrow">Ждут подтверждения · ${d.pending.length}</span></div>${d.pending.map(b=>row({...b,name:b.name+" · "+hdate(b.date,false)})).join("")}`:""}
-   <div class="rule"><span class="eyebrow">Расписание</span></div><div class="chips" style="margin-bottom:12px">${strip}</div>
-   ${d.items.length?d.items.map(row).join(""):`<div class="card empty">На ${hdate(d.date)} записей нет</div>`}
-   <p class="small muted" style="text-align:center;margin-top:16px">Полное управление графиком, услугами, фото и рассылками — в чате бота: /admin</p></div>`;
-}
-async function loadAdmin(date){try{S.adm.data=await api("/api/admin/day"+(date?`?date=${date}`:""))}catch(e){toast("Нет доступа")}if(S.tab==="admin")render()}
-
-/* ---------- роутинг и события ---------- */
+/* ---------- рендер и события ---------- */
 function render(){
   if(!S.boot)return;
-  const v={home:vHome,prices:vPrices,book:vBook,portfolio:vPortfolio,my:vMy,admin:vAdmin}[S.tab]||vHome;
-  app.innerHTML=v();
-  const back=(S.tab==="book"&&S.b&&S.b.step>0&&!S.b.done);
-  if(tg.BackButton&&!$("#lb").classList.contains("open")){back?tg.BackButton.show():tg.BackButton.hide()}
+  clearInterval(marqueeTimer);
+  app.innerHTML=({home:vHome,services:vServices,book:vBook,me:vMe}[S.tab]||vHome)();
+  if(S.tab==="home")startMarquee();
+  const back=S.tab==="book"&&S.b&&(S.b.step>0||S.b.resched)&&!S.b.done;
+  if(tg.BackButton){back?tg.BackButton.show():tg.BackButton.hide()}
 }
-function bBack(){const b=S.b;if(!b)return;if(b.step===4)b.step=3;else if(b.step===3)b.step=2;else if(b.step<=2){if(b.resched){go("my");return}b.step=0;b.date=null;b.time=null}render()}
-if(tg.BackButton&&tg.BackButton.onClick)tg.BackButton.onClick(()=>{if($("#lb").classList.contains("open"))return;if(S.tab==="book")bBack()});
+function bBack(){const b=S.b;if(!b)return;if(b.step===4)b.step=3;else if(b.step===3)b.step=2;else{if(b.resched){go("me");return}b.step=0;b.date=null;b.time=null}render()}
+if(tg.BackButton&&tg.BackButton.onClick)tg.BackButton.onClick(()=>{if($("#lb").classList.contains("open"))return lbClose();if(S.tab==="book")bBack()});
+
+document.addEventListener("input",e=>{if(e.target.id==="q2"){S.q=e.target.value;const l=$("#svcList");if(l)l.innerHTML=svcList()}});
+document.addEventListener("keydown",e=>{if(e.target.id==="q"&&e.key==="Enter"){S.q=e.target.value;S.cat=null;go("services")}});
+document.addEventListener("change",e=>{if(e.target.id==="q"&&e.target.value.trim()){S.q=e.target.value;S.cat=null;go("services")}});
 
 document.addEventListener("click",async e=>{
   const t=e.target.closest("button,[data-tab]");if(!t)return;const ds=t.dataset;
-  if(ds.tab){closeSheet();if(ds.tab==="book"&&S.b&&S.b.done)newBooking();go(ds.tab);return}
-  if(ds.cat){S.cat=ds.cat;haptic();render();return}
+  if(ds.tab){closeSheet();if(ds.tab==="book"&&S.b&&S.b.done)newBooking();if(ds.tab==="services"&&t.closest(".dock")){S.q="";S.cat=null}go(ds.tab);return}
+  if(ds.cat){S.cat=ds.cat;S.q="";go("services");return}
+  if(ds.filter!==undefined){S.cat=ds.filter||null;haptic();render();return}
+  if(ds.svc){showService(+ds.svc);return}
   if(ds.booksvc){pickService(+ds.booksvc);return}
-  if(ds.fav){const id=+ds.fav;haptic();try{const r=await api("/api/favorite",{service:id});S.boot.favorites=r.favorite?[...S.boot.favorites,id]:S.boot.favorites.filter(x=>x!==id);toast(r.favorite?"Добавлено в избранное ♡":"Убрано из избранного");render()}catch(err){}return}
-  if(ds.group){S.b.group=ds.group;haptic();render();return}
   if(ds.pick){pickService(+ds.pick);return}
+  if(ds.fav){const id=+ds.fav;haptic();try{const r=await api("/api/favorite",{service:id});S.boot.favorites=r.favorite?[...S.boot.favorites,id]:S.boot.favorites.filter(x=>x!==id);toast(r.favorite?"Добавлено в избранное":"Убрано из избранного");
+    if($("#sheet").classList.contains("open")&&t.closest("#sheet"))showService(id);render()}catch(err){}return}
+  if(ds.pf){haptic();loadPf(ds.pf);return}
+  if(ds.pfview){S.pf.view=ds.pfview;store.set("pfview",S.pf.view);document.querySelectorAll("[data-pfview]").forEach(b=>b.classList.toggle("on",b.dataset.pfview===S.pf.view));patchWorks();return}
+  if(ds.open!==undefined){lbOpen(+ds.open);return}
   if(ds.month){loadMonth(shiftYm(S.b.ym,+ds.month));return}
   if(ds.day){S.b.date=ds.day;S.b.time=null;S.b.step=1;haptic();loadSlots();return}
   if(ds.time){S.b.time=ds.time;S.b.step=2;haptic();render();setTimeout(()=>{const n=$('[data-act="b-next"]');n&&n.scrollIntoView({behavior:"smooth",block:"center"})},50);return}
-  if(ds.pf){haptic();loadPf(ds.pf);return}
-  if(ds.open!==undefined){lbOpen(+ds.open);return}
-  if(ds.resched){const b=S.my.active.find(x=>x.id===+ds.resched);newBooking({resched:b.id,step:1,svc:{id:b.service_id,title:b.service_title,price:b.price,price_from:b.price_from,duration:b.duration}});S.tab="book";renderTabs();render();loadMonth();return}
-  if(ds.cancel){const id=+ds.cancel;sheet(`<h2 class="h2" style="margin-bottom:10px">Отменить запись?</h2><p class="muted">Окошко освободится для других клиенток. Может, лучше перенести? ♡</p>
-     <button class="btn" data-resched="${id}">🔁 Перенести</button><button class="btn ghost" style="margin-top:10px" data-cancelyes="${id}">Да, отменить</button>`);return}
-  if(ds.cancelyes){closeSheet();try{await api("/api/cancel",{id:+ds.cancelyes});toast("Запись отменена");S.my=null;render()}catch(err){toast(err.message==="too_late"?"До визита слишком мало времени — напиши мастеру":"Не получилось отменить")}return}
+  if(ds.quick){const [id,iso,tm]=ds.quick.split("|");pickService(+id,{date:iso,time:tm});return}
+  if(ds.quiz){const [st,a]=ds.quiz.split("|");haptic();quiz(+st,a.split(","));return}
+  if(ds.quizgo){const [id,when]=ds.quizgo.split("|");if(when==="any"){pickService(+id);return}
+    const d=new Date();d.setDate(d.getDate()+(+when));const iso=isoOf(d);let slots=[];try{slots=(await api(`/api/slots?service=${id}&date=${iso}`)).slots}catch(err){}
+    if(slots.length)pickService(+id,{date:iso});else{toast("На этот день окон нет — выбери другой");pickService(+id)}return}
+  if(ds.resched){closeSheet();const b=S.my.active.find(x=>x.id===+ds.resched);newBooking({resched:b.id,step:1,svc:{id:b.service_id,title:b.service_title,price:b.price,price_from:b.price_from,duration:b.duration,category:(S.boot.services.find(s=>s.id===b.service_id)||{}).category,photo:(S.boot.services.find(s=>s.id===b.service_id)||{}).photo}});S.tab="book";renderDock();render();loadMonth();return}
+  if(ds.cancel){const id=+ds.cancel;sheet(`<h2 class="h2" style="font-size:24px;margin:4px 40px 10px 0">Отменить запись?</h2><p class="muted" style="margin:0 0 18px">Окно освободится для других. Может, лучше перенести?</p>
+     <button class="btn" data-resched="${id}">Перенести</button><button class="btn danger" style="margin-top:10px" data-cancelyes="${id}">Да, отменить</button>`);return}
+  if(ds.cancelyes){closeSheet();try{await api("/api/cancel",{id:+ds.cancelyes});toast("Запись отменена");S.my=null;render()}catch(err){toast(err.message==="too_late"?"До визита мало времени — напиши мастеру":"Не получилось отменить")}return}
   if(ds.admday){S.adm.data.date=ds.admday;loadAdmin(ds.admday);return}
-  if(ds.adm){const [action,id]=ds.adm.split(":");if(action==="cancel"&&!confirm("Отменить запись? Клиентка получит уведомление."))return;
-    try{await api("/api/admin/action",{id:+id,action});toast("Готово ✓");loadAdmin(S.adm.data.date)}catch(err){toast("Ошибка")}return}
+  if(ds.adm){const [action,id]=ds.adm.split(":");
+    if(action==="cancel"&&!t.dataset.sure){t.dataset.sure="1";t.textContent="Точно отменить?";return}
+    try{await api("/api/admin/action",{id:+id,action});toast("Готово");loadAdmin(S.adm.data.date)}catch(err){toast("Ошибка")}return}
+  const st=S.boot&&S.boot.studio;
   switch(ds.act){
-    case "about":showAbout();break;
-    case "contact":showContact();break;
-    case "map":tg.openLink(S.boot.studio.map_url);break;
-    case "tg-contact":tg.openTelegramLink("https://t.me/"+S.boot.studio.contact_username);break;
+    case "sheet-close":closeSheet();break;
+    case "reset":window.DEMO_RESET&&window.DEMO_RESET();break;
+    case "free-today":quickSlots(0);break;
+    case "free-tomorrow":quickSlots(1);break;
+    case "nearest":nearest();break;
+    case "quiz":quiz();break;
+    case "clear-recent":store.set("recent",[]);render();break;
+    case "channel":st.channel_url?tg.openTelegramLink(st.channel_url):toast("Канал скоро появится");break;
+    case "about":sheet(`<div style="border-radius:22px;overflow:hidden;height:220px;margin-bottom:16px"><img src="${st.images.about}" alt="" style="width:100%;height:100%;object-fit:cover"></div><h2 class="h2" style="font-size:24px;margin-bottom:10px">${esc(st.master)}</h2>
+      <div class="muted" style="font-size:14.5px">${(st.about||"").split("\n").filter(Boolean).map(l=>`<p style="margin:0 0 10px">${l}</p>`).join("")}</div><button class="btn" style="margin-top:8px" data-tab="book">Записаться</button>`);break;
+    case "map":sheet(`<h2 class="h2" style="font-size:24px;margin:4px 40px 10px 0">Адрес студии</h2><p style="margin:0 0 6px;font-weight:700">${esc(st.address)}</p><p class="muted" style="margin:0 0 18px">${esc(st.address_hint)}</p>
+      ${st.map_url?`<button class="btn" data-act="open-map">Открыть на карте</button>`:""}`);break;
+    case "open-map":tg.openLink(st.map_url);break;
+    case "contact":sheet(`<h2 class="h2" style="font-size:24px;margin:4px 40px 10px 0">Написать мастеру</h2><p class="muted" style="margin:0 0 18px">${esc(st.contact_text)}</p>
+      ${st.contact_username?`<button class="btn" data-act="tg-contact">Написать в Telegram</button>`:""}
+      ${st.contact_phone?`<p style="margin:14px 0 0;text-align:center;font-weight:700;user-select:all">${esc(st.contact_phone)}</p>`:""}
+      <button class="btn ghost" style="margin-top:10px" data-act="close-app">Написать в чате бота</button>`);break;
+    case "tg-contact":tg.openTelegramLink("https://t.me/"+st.contact_username);break;
     case "close-app":tg.close();break;
-    case "sheet-book":closeSheet();go("book");break;
     case "lb-close":lbClose();break;
     case "b-back":bBack();break;
     case "b-again":newBooking();go("home");break;
-    case "b-next":if(S.b.resched){submit()}else{S.b.step=3;render();window.scrollTo({top:0})}break;
-    case "b-contacts":{const b=S.b;b.name=$("#fName").value.trim();b.phone=$("#fPhone").value.trim();b.comment=$("#fComment").value.trim();
-      b.phone=fmtPhone(b.phone);const digits=b.phone.replace(/\D/g,"");b.err=b.name.length<2?"Напиши, пожалуйста, имя":digits.length<11||digits.length>15?"Проверь номер телефона":null;
+    case "b-next":if(S.b.resched)submit();else{S.b.step=3;render();window.scrollTo({top:0})}break;
+    case "b-contacts":{const b=S.b;b.name=$("#fName").value.trim();b.phone=fmtPhone($("#fPhone").value.trim());b.comment=$("#fComment").value.trim();
+      const digits=b.phone.replace(/\D/g,"");b.err=b.name.length<2?"Напиши, пожалуйста, имя":digits.length<11||digits.length>15?"Проверь номер телефона":null;
       if(!b.err){b.step=4;window.scrollTo({top:0})}render();break}
     case "b-submit":submit();break;
     case "sub-open":tg.openTelegramLink(t.dataset.url);break;
-    case "sub-check":try{const r=await api("/api/sub",{});if(r.subscribed){closeSheet();toast("Спасибо за подписку! 💗");submit()}else toast("Кажется, подписки пока нет 🥺")}catch(err){}break;
+    case "sub-check":try{const r=await api("/api/sub",{});if(r.subscribed){closeSheet();toast("Спасибо за подписку!");submit()}else toast("Подписки пока нет")}catch(err){}break;
   }
 });
 
 (async function init(){
   try{S.boot=await api("/api/bootstrap")}catch(e){
-    app.innerHTML=`<div class="view" style="text-align:center;padding-top:30vh"><div class="eyebrow">Beauty studio</div><h1 class="h1">Открой меня в Telegram ♡</h1><p class="muted">Это приложение работает внутри бота.</p></div>`;return}
-  renderTabs();render();
-  if(S.tab==="portfolio")loadPf(S.pf.s);
+    app.innerHTML=`<div class="view" style="text-align:center;padding-top:30vh"><h1 class="h1">Открой меня в Telegram</h1><p class="muted">Это приложение работает внутри бота.</p></div>`;return}
+  if(!S.pf.s){const first=S.boot.portfolio.find(p=>p.count)||S.boot.portfolio[0];S.pf.s=first&&first.id}
+  renderDock();render();
+  if(S.pf.s)loadPf(S.pf.s);
 })();
-document.addEventListener("click",e=>{const t=e.target.closest('[data-tab="portfolio"]');if(t&&!S.pf.items.length&&!S.pf.loading)loadPf(S.pf.s)},true);
 </script>
 </body>
 </html>
