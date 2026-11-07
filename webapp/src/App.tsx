@@ -1,5 +1,5 @@
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { TabBar } from "./components/TabBar";
 import { Button, Skeleton, ease } from "./components/ui";
 import { AppProvider, useApp } from "./hooks/useApp";
@@ -10,7 +10,8 @@ import { Profile } from "./pages/Profile";
 import { Services } from "./pages/Services";
 
 const AdminApp = lazy(() => import("./admin/AdminApp"));
-const isAdminRoute = () => location.pathname.startsWith("/admin") || new URLSearchParams(location.search).has("admin");
+export const isAdminRoute = () => location.pathname.startsWith("/admin") || location.hash === "#admin" || new URLSearchParams(location.search).has("admin");
+export const exitAdmin = () => { if (location.hash === "#admin") location.hash = ""; else location.href = "/"; };
 
 function Loading() {
   return (
@@ -46,10 +47,12 @@ function ClientApp() {
 }
 
 export default function App() {
+  const [admin, setAdmin] = useState(isAdminRoute());
+  useEffect(() => { const f = () => { setAdmin(isAdminRoute()); window.scrollTo({ top: 0 }); }; window.addEventListener("hashchange", f); return () => window.removeEventListener("hashchange", f); }, []);
   return (
     <MotionConfig reducedMotion="user">
       <AppProvider>
-        {isAdminRoute() ? <Suspense fallback={<Loading />}><AdminApp /></Suspense> : <ClientApp />}
+        {admin ? <Suspense fallback={<Loading />}><AdminApp /></Suspense> : <ClientApp />}
       </AppProvider>
     </MotionConfig>
   );

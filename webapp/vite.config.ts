@@ -4,7 +4,10 @@ import react from "@vitejs/plugin-react";
 // Обычная сборка кладётся в app/web/dist и раздаётся Python-сервером.
 // Демо-сборка (--mode demo) работает без сервера, на встроенных примерах данных.
 export default defineConfig(({ mode }) => ({
-  plugins: [react()],
+  plugins: [react(), mode === "demo" && {
+    name: "demo-html",
+    transformIndexHtml: (html: string) => html.replace(/<script src="https:\/\/telegram[^>]*><\/script>/, "").replace(/<link rel="preload"[^>]*>\n?/g, ""),
+  }],
   base: mode === "demo" ? "./" : "/",
   build: {
     outDir: mode === "demo" ? "dist-demo" : "../app/web/dist",

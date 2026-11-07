@@ -5,6 +5,7 @@ import { Button, Skeleton, ease } from "../components/ui";
 import { useApp } from "../hooks/useApp";
 import { adminSession, api, ApiError } from "../services/api";
 import { inTelegram } from "../services/telegram";
+import { exitAdmin } from "../App";
 import { BookingsAdmin } from "./Bookings";
 import { CalendarAdmin } from "./CalendarAdmin";
 import { ClientsAdmin } from "./Clients";
@@ -68,7 +69,7 @@ export default function AdminApp() {
         Вход только для мастера. Отправь боту команду <b className="text-ink">/panel</b> — он пришлёт кнопку для входа в Telegram и одноразовую ссылку для браузера.
       </p>
       {!inTelegram && <p className="mt-3 max-w-[320px] text-[12px] text-muted">Ссылка действует 10 минут, после входа сессия хранится 7 дней на этом устройстве.</p>}
-      <Button variant="ghost" className="mt-6" onClick={() => (location.href = "/")}>На главную приложения</Button>
+      <Button variant="ghost" className="mt-6" onClick={exitAdmin}>На главную приложения</Button>
     </div>
   );
 
@@ -102,7 +103,7 @@ export default function AdminApp() {
         <header className="sticky top-0 z-20 border-b border-line bg-bg/85 backdrop-blur-xl lg:hidden" style={{ paddingTop: "var(--safe-top)" }}>
           <div className="flex items-center justify-between px-4 pt-3">
             <div className="flex items-center gap-2">
-              <button onClick={() => (location.href = "/")} aria-label="В приложение" className="grid h-9 w-9 place-items-center rounded-full bg-surface shadow-card"><ArrowLeft size={16} /></button>
+              <button onClick={exitAdmin} aria-label="В приложение" className="grid h-9 w-9 place-items-center rounded-full bg-surface shadow-card"><ArrowLeft size={16} /></button>
               <div><div className="eyebrow !text-[10px]">Админ-панель</div><div className="h-display text-[20px] leading-none">{me?.studio}</div></div>
             </div>
             <button onClick={toggleTheme} className="grid h-9 w-9 place-items-center rounded-full bg-surface text-muted shadow-card" aria-label="Тема">{theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}</button>

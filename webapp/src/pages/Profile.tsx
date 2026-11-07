@@ -140,7 +140,7 @@ export function Profile() {
       </div>
 
       {b.user.is_admin && (
-        <Tap onClick={() => { location.href = (import.meta.env.MODE === "demo" ? "./index.html" : "/admin") + (import.meta.env.MODE === "demo" ? "?admin=1" : ""); }}
+        <Tap onClick={() => { if (import.meta.env.MODE === "demo") location.hash = "admin"; else location.href = "/admin"; }}
           className="mt-6 flex w-full items-center gap-4 rounded-[26px] bg-ink p-5 text-bg">
           <Crown size={22} /><div><div className="text-[15px] font-semibold">Админ-панель</div><div className="text-[12px] opacity-70">Записи, календарь, услуги и статистика</div></div>
         </Tap>

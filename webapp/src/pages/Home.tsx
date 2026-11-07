@@ -44,6 +44,12 @@ export function Home() {
         </div>
       </motion.header>
 
+      {import.meta.env.MODE === "demo" && (
+        <motion.div variants={itemV} className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-soft px-3.5 py-2.5 text-[12px] text-muted">
+          <span>Демо-версия: примеры данных, записи хранятся только на этом устройстве. Админка — в «Профиле».</span>
+          <button className="shrink-0 font-semibold text-accent" onClick={() => (window as unknown as { __demoReset: () => void }).__demoReset()}>Сбросить</button>
+        </motion.div>
+      )}
       <motion.div variants={itemV} className="mt-7">
         <div className="text-[14px] text-muted">Добро пожаловать 🤍</div>
         <h1 className="h-display mt-1 text-[40px]">{firstName ? <>{firstName}<span className="text-primary">.</span></> : <>Рады видеть<span className="text-primary">.</span></>}</h1>
