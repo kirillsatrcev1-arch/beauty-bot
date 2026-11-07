@@ -1,0 +1,12 @@
+# Конфигурация для хостинга Amvera (amvera.ru): сборка по Dockerfile, постоянный диск для базы и фото
+meta:
+  environment: docker
+  toolchain:
+    name: docker
+    version: latest
+build:
+  dockerfile: Dockerfile
+  skip: false
+run:
+  persistenceMount: /data
+  containerPort: 8080
