@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- шрифты (лежат рядом с приложением, без внешних CDN) ---------- */
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: normal; font-display: swap; src: url("/fonts/cormorant-garamond-cyrillic-500-normal.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: normal; font-display: swap; src: url("/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+20BD, U+2122; }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 600; font-style: normal; font-display: swap; src: url("/fonts/cormorant-garamond-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 600; font-style: normal; font-display: swap; src: url("/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+20BD, U+2122; }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: italic; font-display: swap; src: url("/fonts/cormorant-garamond-cyrillic-500-italic.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: italic; font-display: swap; src: url("/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+20BD, U+2122; }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 600; font-style: italic; font-display: swap; src: url("/fonts/cormorant-garamond-cyrillic-600-italic.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 600; font-style: italic; font-display: swap; src: url("/fonts/cormorant-garamond-latin-600-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+20BD, U+2122; }
+@font-face { font-family: "Onest"; font-weight: 400; font-display: swap; src: url("/fonts/onest-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Onest"; font-weight: 400; font-display: swap; src: url("/fonts/onest-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+20BD, U+2122, U+2212; }
+@font-face { font-family: "Onest"; font-weight: 500; font-display: swap; src: url("/fonts/onest-cyrillic-500-normal.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Onest"; font-weight: 500; font-display: swap; src: url("/fonts/onest-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+20BD, U+2122, U+2212; }
+@font-face { font-family: "Onest"; font-weight: 600; font-display: swap; src: url("/fonts/onest-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Onest"; font-weight: 600; font-display: swap; src: url("/fonts/onest-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+20BD, U+2122, U+2212; }
+@font-face { font-family: "Onest"; font-weight: 700; font-display: swap; src: url("/fonts/onest-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Onest"; font-weight: 700; font-display: swap; src: url("/fonts/onest-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+20BD, U+2122, U+2212; }
+
+/* ---------- дизайн-токены ---------- */
+:root {
+  /* светлая тема: тёплый молочный, пыльная роза, сливовый */
+  --bg: 250 247 245;        /* #FAF7F5 */
+  --surface: 255 255 255;   /* #FFFFFF */
+  --primary: 197 143 157;   /* #C58F9D */
+  --secondary: 233 212 216; /* #E9D4D8 */
+  --accent: 117 75 93;      /* #754B5D */
+  --ink: 40 35 38;          /* #282326 */
+  --muted: 166 154 157;     /* #A69A9D */
+  --line: 240 232 233;      /* #F0E8E9 */
+  --soft: 246 238 239;      /* полупрозрачная розовая поверхность */
+  --ok: 108 152 128;
+  --warn: 196 152 84;
+  --danger: 190 92 102;
+  --shadow: 117 75 93;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  --bg: 22 18 20;
+  --surface: 33 27 30;
+  --primary: 211 162 175;
+  --secondary: 70 50 58;
+  --accent: 232 196 206;
+  --ink: 246 239 241;
+  --muted: 156 143 147;
+  --line: 48 40 44;
+  --soft: 42 34 38;
+  --ok: 132 182 154;
+  --warn: 216 176 104;
+  --danger: 222 120 130;
+  --shadow: 0 0 0;
+  color-scheme: dark;
+}
+
+html, body, #root { min-height: 100%; }
+html, body { overflow-x: clip; }
+body {
+  @apply bg-bg text-ink font-sans antialiased;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid rgb(var(--primary)); outline-offset: 2px; }
+::selection { background: rgb(var(--secondary)); }
+
+@layer components {
+  .page { @apply mx-auto w-full max-w-[560px] px-4; padding-top: calc(12px + var(--safe-top)); padding-bottom: calc(120px + var(--safe-bottom)); }
+  .h-display { @apply font-display font-medium tracking-[-0.01em] leading-[1.02]; }
+  .font-display, .h-display { font-variant-numeric: lining-nums proportional-nums; font-feature-settings: "lnum" 1, "pnum" 1; }
+  .eyebrow { @apply text-[11px] font-semibold uppercase tracking-[0.16em] text-muted; }
+  .card { @apply bg-surface rounded-xl3 shadow-card; }
+  .hairline { @apply border border-line; }
+  .input {
+    @apply w-full min-w-0 rounded-2xl bg-surface border border-line px-4 py-3.5 text-[15px] text-ink placeholder:text-muted/80
+      outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15;
+  }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .hscroll { @apply -mx-4 flex gap-3 overflow-x-auto px-4 no-scrollbar; scroll-snap-type: x mandatory; }
+  .skeleton { @apply rounded-2xl bg-line; background-image: linear-gradient(90deg, transparent, rgb(var(--surface) / .7), transparent); background-size: 200% 100%; animation: sk 1.4s infinite; }
+}
+@keyframes sk { to { background-position: -200% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
